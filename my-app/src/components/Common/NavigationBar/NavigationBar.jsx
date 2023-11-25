@@ -9,13 +9,17 @@ const NavigationBar = () => {
     navigate("/user-profile")
   }
 
+  const goToHomePage = () => {
+    navigate("/");
+  }
+
   return (
     <div className="navigation-bar">
       <ul className="navigation-bar-list">
         <h1>Navigation Bar</h1>
         <div>
-
-        <button onClick={goToUserProfile}>User Profile</button>
+          <button onClick={goToHomePage}>Home</button>
+          <button onClick={goToUserProfile}>User Profile</button>
         </div>
       </ul>
     </div>
