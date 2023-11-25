@@ -28,3 +28,15 @@ POST http://127.0.0.1:5050/addProfile
         Tech,
         Bio
 }
+
+POST http://127.0.0.1:5050/addUser
+{
+    Email,
+    Code
+}
+
+POST http://127.0.0.1:5050/addLike
+
+{
+    Email
+}
