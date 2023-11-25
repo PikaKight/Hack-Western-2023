@@ -22,6 +22,9 @@ def getOne(collection, query) -> dict:
 
     return data
 
+def insertFile(collection, file):
+    pass
+
 def checkExist(collection, query) -> bool:
     col = db[collection]
     
