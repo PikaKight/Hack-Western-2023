@@ -5,7 +5,7 @@ from flask_bcrypt import Bcrypt
 from flask_cors import CORS
 
 from dotenv import load_dotenv
-from database import insertOne, getOne, checkExist
+from database import insertOne, getOne, checkExist, updateOne
 
 load_dotenv('.env')
 
@@ -16,6 +16,7 @@ app = Flask(__name__)
 CORS(app, origins="*", supports_credentials=True)
 
 bcrypt = Bcrypt(app)
+
 
 @app.route("/signup", methods=["POST"])
 def signup():
@@ -50,6 +51,7 @@ def signup():
     })
 
     return response
+
 
 @app.route("/login", methods=["POST"])
 def login():
@@ -90,6 +92,7 @@ def login():
 
     return res
 
+
 @app.route('/addProfile', methods=["POST"])
 def addProfile():
     reqData = request.json
@@ -121,6 +124,7 @@ def addProfile():
 
     return res
 
+
 @app.route('/addUser', methods=["POST"])
 def addUser():
     reqData = request.json
@@ -130,22 +134,47 @@ def addUser():
     })
 
     if isExist:
-        res = {
+        res = jsonify({
             'msg': 'Applicant Profile Already Exist'
-        }
+        })
 
         return res
     
     applicant = {
         'Email': reqData['Email'],
-        'Code': reqData['Code']
+        'Code': reqData['Code'],
+        'Likes': 0
     }
 
     insertOne('Applicant', applicant)
 
-    res = {
+    res = jsonify({
         'msg': 'Applicant Profile Created'
-    }
+    })
+
+    return res
+
+
+@app.route('/addLike', methods=["POST"])
+def addLike():
+    
+    reqData = request.json
+
+    profile = getOne('Applicant', {
+        'Email': reqData['Email']
+    })
+
+    likes = profile['Likes'] + 1
+
+    updateOne('Applicant', {
+        'Email': reqData['Email']
+    },{
+        'Likes': likes
+    })
+
+    res = jsonify({
+        'msg': 'Added Like'
+    })
 
     return res
 
