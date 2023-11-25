@@ -24,4 +24,6 @@ def getOne(collection, query) -> dict:
 def checkExist(collection, query) -> bool:
     col = db[collection]
     
-    isExist = col.count_documents(query, )
+    isExist = col.count_documents(query, limit=1) != 0
+
+    return isExist
