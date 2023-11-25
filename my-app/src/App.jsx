@@ -1,15 +1,20 @@
 // components
-import UserProfile from "./components/UserProfile/UserProfile";
+import NavigationBar from "./components/Common/NavigationBar/NavigationBar";
+import LandingPage from "./components/LandingPage/LandingPage";
+import AccountPage from "./components/AccountPage/AccountPage";
 
 // dependencies
-import { Routes, Route } from "react-router-dom"
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 const App = () => {
   return (
-    <>
-      <Route path="/user-profile" element={<UserProfile/>}></Route>
-    </>
-  )
-}
+    <Router> 
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/account" element={<AccountPage />} />
+      </Routes>
+    </Router>
+  );
+};
 
 export default App;
