@@ -9,8 +9,6 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-import { useNavigate } from "react-router-dom";
-
 const UserProfile = () => {
   const [fullName, setFullName] = useState('');
   const [emailAddress, setEmailAddress] = useState('');
@@ -93,6 +91,7 @@ const UserProfile = () => {
   }
 
   const handleUserSignUp = () => {
+    <LoadingIcons.Bars />
     if (!(fullName && emailAddress && password && phoneNumber && userType)) {
       alert('Please fill out all the fields');
       return;
