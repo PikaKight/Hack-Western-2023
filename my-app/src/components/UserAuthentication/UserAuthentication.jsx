@@ -1,14 +1,12 @@
 import "./UserAuthentication.css";
 
-import NavigationBar from "../Common/NavigationBar/NavigationBar";
-
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import NavigationBar from "../../Common/NavigationBar/NavigationBar";
+import NavigationBar from "../Common/NavigationBar/NavigationBar";
 
 import { useNavigate } from "react-router-dom";
 
