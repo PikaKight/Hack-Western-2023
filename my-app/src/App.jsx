@@ -1,7 +1,6 @@
 // components
 import NavigationBar from "./components/Common/NavigationBar/NavigationBar";
 import LandingPage from "./components/LandingPage/LandingPage";
-import UserAuthentication from "./components/UserAuthentication/UserAuthentication";
 import AccountPage from "./components/AccountPage/AccountPage";
 
 // dependencies

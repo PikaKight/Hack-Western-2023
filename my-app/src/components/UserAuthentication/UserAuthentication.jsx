@@ -143,6 +143,8 @@ const UserProfile = () => {
     .then(res => res.json())
     .then(result => {
       if (result['msg'] === "Logged In") {
+        localStorage.setItem("IS_USER_LOGGED_IN", "yes");
+        window.location.reload();
         navigate("/account");
       }
       else {
@@ -159,6 +161,7 @@ const UserProfile = () => {
   return (
     <div>
       <div className="user-profile">
+        <p>Either we do not have an account with you or your login has expired.</p>
         <button onClick={() => handleUserAuthentication("Login")}>Login</button> / <button className="user-profile-buttons" onClick={() => handleUserAuthentication("Sign Up")}>Sign Up</button>
         {isSignUpSelected ? (
           <div className="user-profile-sign-up">
@@ -189,6 +192,7 @@ const UserProfile = () => {
             <p>Email address: </p><input type="text" value={emailAddress} onChange={handleEmailAddressChange} placeholder="Enter email" />
             <p>Password: </p><input type="text" value={password} onChange={handlePasswordChange} placeholder="Enter password" />
 
+            <p></p>
             <button onClick={handleUserLogin}>Login</button>
           </div>
         )}
