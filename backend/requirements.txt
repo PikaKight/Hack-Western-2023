@@ -1,0 +1,5 @@
+pymongo
+flash
+infobip-api-python-sdk
+python-dotenv
+Bcrypt
