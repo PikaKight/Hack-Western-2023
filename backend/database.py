@@ -9,7 +9,19 @@ client = MongoClient(os.environ.get("URL"))
 
 db = client['HW23']
 
-def insertOne(collection, data):
+def insertOne(collection, data) -> None:
     col = db[collection]
 
     col.insert_one(data)
+
+def getOne(collection, query) -> dict:
+    col = db[collection]
+
+    data = col.find_one(query)
+
+    return data
+
+def checkExist(collection, query) -> bool:
+    col = db[collection]
+    
+    isExist = col.count_documents(query, )
