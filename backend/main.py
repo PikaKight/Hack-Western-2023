@@ -125,6 +125,24 @@ def addProfile():
 def addUser():
     reqData = request.json
 
+    isExist = checkExist('Applicant', {
+        'Email': reqData['Email']
+    })
+
+    if isExist:
+        res = {
+            'msg': 'Applicant Profile Already Exist'
+        }
+
+        return res
+    
+    applicant = {
+        'Email': reqData['Email'],
+        'Code': reqData['Code']
+    }
+
+    insertOne('Applicant', applicant)
+
     res = {
         'msg': 'Applicant Profile Created'
     }
