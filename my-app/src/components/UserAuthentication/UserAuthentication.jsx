@@ -8,6 +8,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import NavigationBar from "../../Common/NavigationBar/NavigationBar";
 
 import LoadingIcons from 'react-loading-icons'
 
@@ -162,6 +163,7 @@ const UserProfile = () => {
 
   return (
     <div>
+      <NavigationBar/>
       <div className="user-profile">
         <p>Either we do not have an account with you or you may have logged out.</p>
         <button onClick={() => handleUserAuthentication("Login")}>Login</button> / <button className="user-profile-buttons" onClick={() => handleUserAuthentication("Sign Up")}>Sign Up</button>
@@ -172,7 +174,6 @@ const UserProfile = () => {
             <p>Email address: </p><input type="text" value={emailAddress} onChange={handleEmailAddressChange} />
             <p>Password: </p><input type="text" value={password} onChange={handlePasswordChange} />
             <p>Phone number: </p><input type="number" value={phoneNumber} onChange={handlePhoneNumberChange} />
-
             <div className="user-profile-user-type">
               <FormControl fullWidth>
                 <InputLabel>User Type</InputLabel>
