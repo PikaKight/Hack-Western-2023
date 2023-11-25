@@ -152,7 +152,7 @@ const UserProfile = () => {
       }
     })
     .catch(error => {
-      console.log('Error in UserSignUp.jsx login: ', error);
+      alert("Account does not exist, please create one");
     })
   }
 
