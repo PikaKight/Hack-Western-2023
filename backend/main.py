@@ -1,35 +1,42 @@
 import os
 
 from flask import Flask, jsonify, request
-from flask_cors import CORS
-from flask.ext.bcrypt import Bcrypt
+from flask_bcrypt import Bcrypt
 
 from dotenv import load_dotenv
 from database import insertOne
 
 load_dotenv('.env')
 
+FORMAT = 'utf-8'
+
 app = Flask(__name__)
 
-CORS(app, origins="*", supports_credentials=True)
+bcrypt = Bcrypt(app)
 
-@app.route("/createAcc", methods=["POST"])
+@app.route("/createAccount", methods=["POST"])
 def createAccount():
 
     reqData = request.json
 
-    psw = reqData['Password']
+    psw = bcrypt.generate_password_hash(reqData['Password']).decode(FORMAT)
 
     acc = {
         'Name': reqData['Name'],
         'Email': reqData['Email'],
         'Password': psw,
         'Phone': reqData['Phone'],
-        'Company': reqData['Compay'] #Bool of True or False
+        'Applicant': reqData['Applicant'] #Bool of True or False
     }
 
 
-    return "Hello, World!"
+    insertOne('Account', acc)
+
+    response = jsonify({
+        'msg': 'Account Created'
+    })
+
+    return response
 
 if __name__ == "__main__":
-    app.run(debug=True, port=8080)
+    app.run(debug=True, port=5050)
