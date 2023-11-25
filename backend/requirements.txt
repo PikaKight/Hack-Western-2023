@@ -2,4 +2,4 @@ pymongo
 flash
 infobip-api-python-sdk
 python-dotenv
-Bcrypt
+flask_bcrypt
