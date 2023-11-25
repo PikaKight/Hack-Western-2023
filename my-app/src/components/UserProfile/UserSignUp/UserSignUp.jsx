@@ -6,6 +6,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import NavigationBar from "../../Common/NavigationBar/NavigationBar";
 
 const UserProfile = () => {
   const [fullName, setFullName] = useState('');
@@ -168,6 +169,7 @@ const UserProfile = () => {
 
   return (
     <div>
+      <NavigationBar/>
       <button onClick={() => handleSignUpOrSignIn("Sign Up")}>Sign Up</button> / <button onClick={() => handleSignUpOrSignIn("Sign In")}>Sign In</button>
       {isSignUpSelected ? (
         <div className="user-profile-sign-up">

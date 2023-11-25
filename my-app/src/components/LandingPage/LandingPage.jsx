@@ -2,11 +2,12 @@ import "./LandingPage.css";
 
 import NavigationBar from "../Common/NavigationBar/NavigationBar";
 
+
 const LandingPage = () => {
   return (
     <div>
-      <NavigationBar />
-        <h1>Landing page</h1>
+      <NavigationBar/>
+      <h1>Landing page</h1>
     </div>
   )
 }
