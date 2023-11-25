@@ -1,7 +1,7 @@
 http://127.0.0.1:5050
 
 SignUp
-http://127.0.0.1:5050/signup
+POST http://127.0.0.1:5050/signup
 
 {
     Name,
@@ -12,9 +12,19 @@ http://127.0.0.1:5050/signup
 }
 
 Login
-http://127.0.0.1:5050/login
+POST http://127.0.0.1:5050/login
 
 {
     Email,
     Password
+}
+
+Company Profile
+POST http://127.0.0.1:5050/addProfile
+{
+        Name,
+        Loc,
+        Type,
+        Tech,
+        Bio
 }
