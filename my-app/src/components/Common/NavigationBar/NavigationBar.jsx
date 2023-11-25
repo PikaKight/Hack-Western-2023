@@ -5,8 +5,12 @@ import { useNavigate } from "react-router-dom";
 const NavigationBar = () => {
   const navigate = useNavigate();
 
-  const goToUserProfile = () => {
-    navigate("/user-profile")
+  const goToAccountPage = () => {
+    navigate("/account")
+  }
+
+  const goToHomePage = () => {
+    navigate("/");
   }
 
   return (
@@ -14,8 +18,8 @@ const NavigationBar = () => {
       <ul className="navigation-bar-list">
         <h1>Navigation Bar</h1>
         <div>
-
-        <button onClick={goToUserProfile}>User Profile</button>
+          <button onClick={goToHomePage}>Home</button>
+          <button onClick={goToAccountPage}>Account</button>
         </div>
       </ul>
     </div>
