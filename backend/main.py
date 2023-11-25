@@ -4,7 +4,7 @@ from flask import Flask, jsonify, request
 from flask_bcrypt import Bcrypt
 
 from dotenv import load_dotenv
-from database import insertOne
+from database import insertOne, getOne
 
 load_dotenv('.env')
 
@@ -14,8 +14,8 @@ app = Flask(__name__)
 
 bcrypt = Bcrypt(app)
 
-@app.route("/createAccount", methods=["POST"])
-def createAccount():
+@app.route("/signup", methods=["POST"])
+def signup():
 
     reqData = request.json
 
@@ -29,7 +29,6 @@ def createAccount():
         'Applicant': reqData['Applicant'] #Bool of True or False
     }
 
-
     insertOne('Account', acc)
 
     response = jsonify({
@@ -37,6 +36,29 @@ def createAccount():
     })
 
     return response
+
+@app.route("/login", methods=["POST"])
+def login():
+    reqData = request.json
+
+    user = getOne({
+        'Email': reqData['Email']
+    })
+
+    isValid = bcrypt.check_password_hash(user['Password'], reqData['Password'])
+
+    if isValid == True:
+        res = jsonify({
+            'msg': 'Logged In'
+        })
+
+    else:
+        res = jsonify({
+            'msg': 'Logged In Failed'
+        })
+
+    return res
+    
 
 if __name__ == "__main__":
     app.run(debug=True, port=5050)

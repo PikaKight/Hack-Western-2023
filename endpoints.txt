@@ -1,4 +1,20 @@
 http://127.0.0.1:5050
 
-Create Account
-http://127.0.0.1:5050/createAccount
+SignUp
+http://127.0.0.1:5050/signup
+
+{
+    Name,
+    Email,
+    Password,
+    Phone,
+    Applicant
+}
+
+Login
+http://127.0.0.1:5050/login
+
+{
+    Email,
+    Password
+}
