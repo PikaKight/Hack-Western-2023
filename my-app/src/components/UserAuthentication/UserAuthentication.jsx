@@ -161,7 +161,7 @@ const UserProfile = () => {
   return (
     <div>
       <div className="user-profile">
-        <p>Either we do not have an account with you or your login has expired.</p>
+        <p>Either we do not have an account with you or you may have logged out.</p>
         <button onClick={() => handleUserAuthentication("Login")}>Login</button> / <button className="user-profile-buttons" onClick={() => handleUserAuthentication("Sign Up")}>Sign Up</button>
         {isSignUpSelected ? (
           <div className="user-profile-sign-up">

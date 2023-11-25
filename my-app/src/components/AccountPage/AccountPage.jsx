@@ -12,11 +12,19 @@ const AccountPage = () => {
     setIsLoggedIn(savedIsUserLoggedIn === "yes");
   }, [])
 
+  const logOut = () => {
+    localStorage.setItem("IS_USER_LOGGED_IN", "no");
+    window.location.reload();
+  }
+
   return (
     <div>
       <NavigationBar />
       {isLoggedIn ? (
-        <h3>Account Page!</h3>
+        <div>
+          <h3>Account Page!</h3>
+          <button onClick={logOut}>Log out</button>
+        </div>
       ) : (
         <UserAuthentication />
       )}
