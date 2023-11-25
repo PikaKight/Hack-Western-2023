@@ -3,7 +3,10 @@ import "./UserProfile.css";
 const UserProfile = () => {
   return (
     <div>
-    <h1>Hi there again</h1>
+      <div>
+        <h1>Sign up form</h1>
+        <p>Full name: </p><input type="text" />
+      </div>
     </div>
   )
 }
