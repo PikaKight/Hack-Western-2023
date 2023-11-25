@@ -4,7 +4,7 @@ from flask import Flask, jsonify, request
 from flask_bcrypt import Bcrypt
 
 from dotenv import load_dotenv
-from database import insertOne, getOne
+from database import insertOne, getOne, checkExist
 
 load_dotenv('.env')
 
@@ -18,6 +18,17 @@ bcrypt = Bcrypt(app)
 def signup():
 
     reqData = request.json
+
+    isExist = checkExist('Account', {
+        'Email': reqData['Email']
+    })
+
+    if isExist:
+        res = {
+            'msg': 'Account already Exist'
+        }
+
+        return res
 
     psw = bcrypt.generate_password_hash(reqData['Password']).decode(FORMAT)
 
@@ -39,9 +50,20 @@ def signup():
 
 @app.route("/login", methods=["POST"])
 def login():
-    reqData = request.json
+    reqData = request.json   
 
-    user = getOne({
+    isExist = checkExist('Account', {
+        'Email': reqData['Email']
+    })
+
+    if not isExist:
+        res = {
+            'msg': 'Account does not Exist'
+        }
+
+        return res
+
+    user = getOne('Account', {
         'Email': reqData['Email']
     })
 
