@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 const NavigationBar = () => {
   const navigate = useNavigate();
 
-  const goToUserProfile = () => {
-    navigate("/user-profile")
+  const goToAccountPage = () => {
+    navigate("/account")
   }
 
   const goToHomePage = () => {
@@ -19,7 +19,7 @@ const NavigationBar = () => {
         <h1>Navigation Bar</h1>
         <div>
           <button onClick={goToHomePage}>Home</button>
-          <button onClick={goToUserProfile}>User Profile</button>
+          <button onClick={goToAccountPage}>Account</button>
         </div>
       </ul>
     </div>

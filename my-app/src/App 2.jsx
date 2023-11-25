@@ -1,5 +1,5 @@
 // components
-import UserProfile from "./components/UserProfile/UserProfile";
+import UserProfile from "./components/UserAuthentication/UserAuthentication";
 
 // dependencies
 import { Routes, Route } from "react-router-dom"

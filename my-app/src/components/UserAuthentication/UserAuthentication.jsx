@@ -1,4 +1,4 @@
-import "./UserProfile.css";
+import "./UserAuthentication.css";
 
 import NavigationBar from "../Common/NavigationBar/NavigationBar";
 
@@ -9,6 +9,8 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
+import { useNavigate } from "react-router-dom";
+
 const UserProfile = () => {
   const [fullName, setFullName] = useState('');
   const [emailAddress, setEmailAddress] = useState('');
@@ -16,7 +18,9 @@ const UserProfile = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [userType, setUserType] = useState('');
   const [userProfile, setUserProfile] = useState([]);
-  const [isSignUpSelected, setIsSignUpSelected] = useState(true);
+  const [isSignUpSelected, setIsSignUpSelected] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const savedFullName = localStorage.getItem("USER_FULL_NAME");
@@ -79,7 +83,7 @@ const UserProfile = () => {
     localStorage.setItem("USER_PHONE_NUMBER", JSON.stringify(phoneNumber));
   }
 
-  const handleSignUpOrSignIn = (item) => {
+  const handleUserAuthentication = (item) => {
     if (item === "Sign Up") {
       setIsSignUpSelected(true);
     }
@@ -118,7 +122,7 @@ const UserProfile = () => {
     })
   }
 
-  const handleUserSignIn = () => {
+  const handleUserLogin = () => {
     if (!(emailAddress && password)) {
       alert('Please fill out all the fields');
       return;
@@ -138,10 +142,15 @@ const UserProfile = () => {
     })
     .then(res => res.json())
     .then(result => {
-      alert('Sign in succesful')
+      if (result['msg'] === "Logged In") {
+        navigate("/account");
+      }
+      else {
+        alert("Password incorrect");
+      }
     })
     .catch(error => {
-      console.log('Error in UserSignUp.jsx sign in: ', error);
+      console.log('Error in UserSignUp.jsx login: ', error);
     })
   }
 
@@ -149,9 +158,8 @@ const UserProfile = () => {
 
   return (
     <div>
-      <NavigationBar />
       <div className="user-profile">
-        <button className="user-profile-buttons" onClick={() => handleSignUpOrSignIn("Sign Up")}>Sign Up</button> / <button onClick={() => handleSignUpOrSignIn("Sign In")}>Sign In</button>
+        <button onClick={() => handleUserAuthentication("Login")}>Login</button> / <button className="user-profile-buttons" onClick={() => handleUserAuthentication("Sign Up")}>Sign Up</button>
         {isSignUpSelected ? (
           <div className="user-profile-sign-up">
             <h1>Sign up form</h1>
@@ -177,24 +185,11 @@ const UserProfile = () => {
           </div>
         ) : (
           <div className="user-profile-sign-up">
-            <h1>Sign in form</h1>
+            <h1>Login form</h1>
             <p>Email address: </p><input type="text" value={emailAddress} onChange={handleEmailAddressChange} placeholder="Enter email" />
             <p>Password: </p><input type="text" value={password} onChange={handlePasswordChange} placeholder="Enter password" />
 
-            <div className="user-profile-user-type">
-              <FormControl fullWidth>
-                <InputLabel>User Type</InputLabel>
-                <Select
-                  value={userType}
-                  onChange={handleUserTypeChange}
-                >
-                  <MenuItem value={'Applicant'}>Applicant</MenuItem>
-                  <MenuItem value={'Recruiter'}>Recruiter</MenuItem>
-                </Select>
-              </FormControl>
-            </div>
-
-            <button onClick={handleUserSignIn}>Sign In</button>
+            <button onClick={handleUserLogin}>Login</button>
           </div>
         )}
       </div>
