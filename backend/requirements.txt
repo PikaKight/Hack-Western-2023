@@ -1,0 +1,6 @@
+pymongo
+flash
+infobip-api-python-sdk
+python-dotenv
+flask_bcrypt
+flask-cors
