@@ -1,7 +1,7 @@
 // components
 import NavigationBar from "./components/Common/NavigationBar/NavigationBar";
 import LandingPage from "./components/LandingPage/LandingPage";
-import UserProfile from "./components/UserProfile/UserProfile";
+import AccountPage from "./components/AccountPage/AccountPage";
 
 // dependencies
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -11,7 +11,7 @@ const App = () => {
     <Router> 
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/user-profile" element={<UserProfile />} />
+        <Route path="/account" element={<AccountPage />} />
       </Routes>
     </Router>
   );
