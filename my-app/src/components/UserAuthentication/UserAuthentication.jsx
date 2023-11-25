@@ -1,4 +1,6 @@
-import "./UserSignUp.css";
+import "./UserAuthentication.css";
+
+import NavigationBar from "../Common/NavigationBar/NavigationBar";
 
 import * as React from 'react';
 import { useState, useEffect } from 'react';
@@ -8,6 +10,8 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import NavigationBar from "../../Common/NavigationBar/NavigationBar";
 
+import { useNavigate } from "react-router-dom";
+
 const UserProfile = () => {
   const [fullName, setFullName] = useState('');
   const [emailAddress, setEmailAddress] = useState('');
@@ -15,7 +19,9 @@ const UserProfile = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [userType, setUserType] = useState('');
   const [userProfile, setUserProfile] = useState([]);
-  const [isSignUpSelected, setIsSignUpSelected] = useState(true);
+  const [isSignUpSelected, setIsSignUpSelected] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const savedFullName = localStorage.getItem("USER_FULL_NAME");
@@ -78,7 +84,7 @@ const UserProfile = () => {
     localStorage.setItem("USER_PHONE_NUMBER", JSON.stringify(phoneNumber));
   }
 
-  const handleSignUpOrSignIn = (item) => {
+  const handleUserAuthentication = (item) => {
     if (item === "Sign Up") {
       setIsSignUpSelected(true);
     }
@@ -86,27 +92,6 @@ const UserProfile = () => {
       setIsSignUpSelected(false);
     }
   }
-
-  /*
-  SignUp
-  http://127.0.0.1:5050/signup
-
-  {
-      Name,
-      Email,
-      Password,
-      Phone,
-      Applicant
-  }
-
-  Login
-  http://127.0.0.1:5050/login
-
-  {
-      Email,
-      Password
-  }
-  */
 
   const handleUserSignUp = () => {
     if (!(fullName && emailAddress && password && phoneNumber && userType)) {
@@ -138,7 +123,7 @@ const UserProfile = () => {
     })
   }
 
-  const handleUserSignIn = () => {
+  const handleUserLogin = () => {
     if (!(emailAddress && password)) {
       alert('Please fill out all the fields');
       return;
@@ -158,10 +143,17 @@ const UserProfile = () => {
     })
     .then(res => res.json())
     .then(result => {
-      alert('Sign up succesful, login using new details')
+      if (result['msg'] === "Logged In") {
+        localStorage.setItem("IS_USER_LOGGED_IN", "yes");
+        window.location.reload();
+        navigate("/account");
+      }
+      else {
+        alert("Password incorrect");
+      }
     })
     .catch(error => {
-      console.log('Error in UserSignUp.jsx sign in: ', error);
+      alert("Account does not exist, please create one");
     })
   }
 
@@ -170,52 +162,42 @@ const UserProfile = () => {
   return (
     <div>
       <NavigationBar/>
-      <button onClick={() => handleSignUpOrSignIn("Sign Up")}>Sign Up</button> / <button onClick={() => handleSignUpOrSignIn("Sign In")}>Sign In</button>
-      {isSignUpSelected ? (
-        <div className="user-profile-sign-up">
-          <h1>Sign up form</h1>
-          <p>Full name: </p><input type="text" value={fullName} onChange={handleFullNameChange} />
-          <p>Email address: </p><input type="text" value={emailAddress} onChange={handleEmailAddressChange} />
-          <p>Password: </p><input type="text" value={password} onChange={handlePasswordChange} />
-          <p>Phone number: </p><input type="number" value={phoneNumber} onChange={handlePhoneNumberChange} />
+      <div className="user-profile">
+        <p>Either we do not have an account with you or you may have logged out.</p>
+        <button onClick={() => handleUserAuthentication("Login")}>Login</button> / <button className="user-profile-buttons" onClick={() => handleUserAuthentication("Sign Up")}>Sign Up</button>
+        {isSignUpSelected ? (
+          <div className="user-profile-sign-up">
+            <h1>Sign up form</h1>
+            <p>Full name: </p><input type="text" value={fullName} onChange={handleFullNameChange} />
+            <p>Email address: </p><input type="text" value={emailAddress} onChange={handleEmailAddressChange} />
+            <p>Password: </p><input type="text" value={password} onChange={handlePasswordChange} />
+            <p>Phone number: </p><input type="number" value={phoneNumber} onChange={handlePhoneNumberChange} />
+            <div className="user-profile-user-type">
+              <FormControl fullWidth>
+                <InputLabel>User Type</InputLabel>
+                <Select
+                  value={userType}
+                  onChange={handleUserTypeChange}
+                >
+                  <MenuItem value={'Applicant'}>Applicant</MenuItem>
+                  <MenuItem value={'Recruiter'}>Recruiter</MenuItem>
+                </Select>
+              </FormControl>
+            </div>
 
-          <div className="user-profile-user-type">
-            <FormControl fullWidth>
-              <InputLabel>User Type</InputLabel>
-              <Select
-                value={userType}
-                onChange={handleUserTypeChange}
-              >
-                <MenuItem value={'Applicant'}>Applicant</MenuItem>
-                <MenuItem value={'Recruiter'}>Recruiter</MenuItem>
-              </Select>
-            </FormControl>
+            <button onClick={handleUserSignUp}>Sign Up</button>
           </div>
+        ) : (
+          <div className="user-profile-sign-up">
+            <h1>Login form</h1>
+            <p>Email address: </p><input type="text" value={emailAddress} onChange={handleEmailAddressChange} placeholder="Enter email" />
+            <p>Password: </p><input type="text" value={password} onChange={handlePasswordChange} placeholder="Enter password" />
 
-          <button onClick={handleUserSignUp}>Sign Up</button>
-        </div>
-      ) : (
-        <div className="user-profile-sign-up">
-          <h1>Sign in form</h1>
-          <p>Email address: </p><input type="text" value={emailAddress} onChange={handleEmailAddressChange} placeholder="Enter email" />
-          <p>Password: </p><input type="text" value={password} onChange={handlePasswordChange} placeholder="Enter password" />
-
-          <div className="user-profile-user-type">
-            <FormControl fullWidth>
-              <InputLabel>User Type</InputLabel>
-              <Select
-                value={userType}
-                onChange={handleUserTypeChange}
-              >
-                <MenuItem value={'Applicant'}>Applicant</MenuItem>
-                <MenuItem value={'Recruiter'}>Recruiter</MenuItem>
-              </Select>
-            </FormControl>
+            <p></p>
+            <button onClick={handleUserLogin}>Login</button>
           </div>
-
-          <button onClick={handleUserSignIn}>Sign In</button>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   )
 }

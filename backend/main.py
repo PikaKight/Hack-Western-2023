@@ -74,7 +74,13 @@ def login():
 
     if isValid == True:
         res = jsonify({
-            'msg': 'Logged In'
+            'msg': 'Logged In',
+            'UserData': {
+                'Name': user['Name'],
+                'Email': user['Email'],
+                'Phone': user['Phone'],
+                'Applicant': user['Applicant']
+            } 
         })
 
     else:
@@ -103,10 +109,27 @@ def addProfile():
         'Name': reqData['Name'],
         'Loc': reqData['Loc'],
         'Type': reqData['Type'],
+        'Tech Stack': reqData['Tech'],
         'Bio': reqData['Bio']
     }
 
     insertOne('Company', company)
+
+    res = {
+        'msg': 'Company Profile Created'
+    }
+
+    return res
+
+@app.route('/addUser', methods=["POST"])
+def addUser():
+    reqData = request.json
+
+    res = {
+        'msg': 'Applicant Profile Created'
+    }
+
+    return res
 
 if __name__ == "__main__":
     app.run(debug=True, port=5050)

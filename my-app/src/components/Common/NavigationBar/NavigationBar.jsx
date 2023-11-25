@@ -6,11 +6,11 @@ import { Box, AppBar, Toolbar, Typography, Button } from "@mui/material"
 const NavigationBar = () => {
   const navigate = useNavigate();
 
-  const goToUserProfile = () => {
-    navigate("/user-profile");
+  const goToAccountPage = () => {
+    navigate("/account")
   }
 
-  const goToHome = () => {
+  const goToHomePage = () => {
     navigate("/");
   }
 
@@ -18,9 +18,9 @@ const NavigationBar = () => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>Sample Text</Typography>
-          <Button color="inherit" onClick={goToHome}>Home</Button>
-          <Button color="inherit" onClick={goToUserProfile}>Login</Button>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>App Name</Typography>
+          <Button color="inherit" onClick={goToHomePage}>Home</Button>
+          <Button color="inherit" onClick={goToAccountPage}>Login</Button>
         </Toolbar>
       </AppBar>
     </Box>
