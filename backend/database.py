@@ -1,11 +1,12 @@
 import os
+import certifi
 
 from dotenv import load_dotenv
 from pymongo.mongo_client import MongoClient
 
 load_dotenv('.env')
 
-client = MongoClient(os.environ.get("URL"))
+client = MongoClient(os.environ.get("URL"), tlsCAFile=certifi.where())
 
 db = client['HW23']
 
