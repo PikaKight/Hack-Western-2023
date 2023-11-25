@@ -29,12 +29,6 @@ const UserProfile = () => {
       setEmailAddress(parsedEmailAddress);
     }
 
-    const savedPassword = localStorage.getItem("USER_PASSWORD");
-    if (savedPassword) {
-      const parsedPassword = JSON.parse(savedPassword);
-      setPassword(parsedPassword);
-    }
-
     const savedPhoneNumber = localStorage.getItem("USER_PHONE_NUMBER");
     if (savedPhoneNumber) {
       const parsedPhoneNumber = JSON.parse(savedPhoneNumber);
@@ -75,7 +69,6 @@ const UserProfile = () => {
   const handlePasswordChange = (event) => {
     const password = event.target.value;
     setPassword(password);
-    localStorage.setItem("USER_PASSWORD", JSON.stringify(password));
   }
 
   const handlePhoneNumberChange = (event) => {
@@ -92,6 +85,86 @@ const UserProfile = () => {
       setIsSignUpSelected(false);
     }
   }
+
+  /*
+  SignUp
+  http://127.0.0.1:5050/signup
+
+  {
+      Name,
+      Email,
+      Password,
+      Phone,
+      Applicant
+  }
+
+  Login
+  http://127.0.0.1:5050/login
+
+  {
+      Email,
+      Password
+  }
+  */
+
+  const handleUserSignUp = () => {
+    if (!(fullName && emailAddress && password && phoneNumber && userType)) {
+      alert('Please fill out all the fields');
+      return;
+    }
+
+    const data = {
+      Name: fullName,
+      Email: emailAddress,
+      Password: password,
+      Phone: phoneNumber,
+      Applicant: userType === 'Applicant',
+    }
+
+    fetch('http://127.0.0.1:5050/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(result => {
+      alert('Sign up succesful, login using new details')
+    })
+    .catch(error => {
+      alert('Error in UserSignUp.jsx sign up: ', error);
+    })
+  }
+
+  const handleUserSignIn = () => {
+    if (!(emailAddress && password)) {
+      alert('Please fill out all the fields');
+      return;
+    }
+
+    const data = {
+      Email: emailAddress,
+      Password: password
+    }
+
+    fetch('http://127.0.0.1:5050/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(result => {
+      alert('Sign up succesful, login using new details')
+    })
+    .catch(error => {
+      console.log('Error in UserSignUp.jsx sign in: ', error);
+    })
+  }
+
+  // localStorage.clear();
 
   return (
     <div>
@@ -117,14 +190,13 @@ const UserProfile = () => {
             </FormControl>
           </div>
 
-          <button>Submit</button>
+          <button onClick={handleUserSignUp}>Sign Up</button>
         </div>
       ) : (
         <div className="user-profile-sign-up">
           <h1>Sign in form</h1>
-          <p>Full name: </p><input type="text" value={fullName} onChange={handleFullNameChange} />
-          <p>Email address: </p><input type="text" value={emailAddress} onChange={handleEmailAddressChange} />
-          <p>Password: </p><input type="text" value={password} onChange={handlePasswordChange} />
+          <p>Email address: </p><input type="text" value={emailAddress} onChange={handleEmailAddressChange} placeholder="Enter email" />
+          <p>Password: </p><input type="text" value={password} onChange={handlePasswordChange} placeholder="Enter password" />
 
           <div className="user-profile-user-type">
             <FormControl fullWidth>
@@ -139,7 +211,7 @@ const UserProfile = () => {
             </FormControl>
           </div>
 
-          <button>Submit</button>
+          <button onClick={handleUserSignIn}>Sign In</button>
         </div>
       )}
     </div>
