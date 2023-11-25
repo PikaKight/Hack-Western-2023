@@ -9,10 +9,6 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-import LoadingIcons from 'react-loading-icons'
-
-import { useNavigate } from "react-router-dom";
-
 const UserProfile = () => {
   const [fullName, setFullName] = useState('');
   const [emailAddress, setEmailAddress] = useState('');
