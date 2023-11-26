@@ -95,20 +95,30 @@ const AccountPage = () => {
       {isLoggedIn ? (
         <Container maxWidth="lg">
           <div class="glass">
-            <h1>Profile</h1>
+            <h1>{userType} Profile</h1>
             <h4>Name: {username}</h4>
-            <h3>Add Code Snippet Below:</h3>
-            <ReactQuill
-              theme="snow" 
-              value={codeSnippet}
-              onChange={(content) => setCodeSnippet(content)}
-            />
-            <TextField label="Describe What This Code Does" multiline fullWidth maxRows={5} value={codeOverview} onChange={handleCodeOverviewChange} margin="dense"></TextField>
-            <h4>Add tags</h4>
-            <CodeSnippetTags />
-            <FormGroup>
-              <FormControlLabel control={<Checkbox checked={isCheckboxChecked} onChange={handleCheckboxChange} />} label="I acknowledge that the provided code is a result of my own individual effort and creativity."/>
-            </FormGroup>
+            {userType === 'Applicant' ? (
+              <div>
+                <h3>Add Code Snippet Below:</h3>
+                <ReactQuill
+                  theme="snow" 
+                  value={codeSnippet}
+                  onChange={(content) => setCodeSnippet(content)}
+                />
+                <TextField label="Describe What This Code Does" multiline fullWidth maxRows={5} value={codeOverview} onChange={handleCodeOverviewChange} margin="dense"></TextField>
+                <h4>Add tags</h4>
+                <CodeSnippetTags />
+                <FormGroup>
+                  <FormControlLabel control={<Checkbox checked={isCheckboxChecked} onChange={handleCheckboxChange} />} label="I acknowledge that the provided code is a result of my own individual effort and creativity."/>
+                </FormGroup>
+                <h3>Total Likes Received: </h3>
+              </div>
+            ) : (
+              <div>
+                <p>Current company: {company}</p>
+                <p>User profiles liked: </p>
+              </div>
+            )}
             <Button variant="contained" onClick={goToMatchingPage}>Start Matching!</Button>
             <Button variant="outlined" onClick={logOut}>Log Out</Button>
           </div>

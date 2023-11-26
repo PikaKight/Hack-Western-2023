@@ -14,6 +14,10 @@ const NavigationBar = () => {
     navigate("/");
   }
 
+  const goToMatchingPage = () => {
+    navigate("/matching");
+  }
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -21,6 +25,7 @@ const NavigationBar = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>App Name</Typography>
           <Button color="inherit" onClick={goToHomePage}>Home</Button>
           <Button color="inherit" onClick={goToAccountPage}>Login</Button>
+          <Button color="inherit" onClick={goToMatchingPage}>Matching</Button>
         </Toolbar>
       </AppBar>
     </Box>
