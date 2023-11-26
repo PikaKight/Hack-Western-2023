@@ -67,20 +67,30 @@ Will Return:
     Likes
 }
 
+Don't Use ----
 POST http://127.0.0.1:5050/addResume
 form-data
     Email, Resume
 
-POST http://127.0.0.1:5050/getResume
+
+POST http://127.0.0.1:5050/getResumePDF
 {
-    Email
+    Email:
 }
+-----
 
 POST http://127.0.0.1:5050/addLogo
 form-data
-    Email, Logo
+    Name: Company Name
+    Logo
 
 POST http://127.0.0.1:5050/getLogo
 {
-    Name
+    Name: Company Name
+}
+
+POST http://127.0.0.1:5050/likeCompany
+{
+    Email: Applicant Email
+    Name: Company Name
 }
