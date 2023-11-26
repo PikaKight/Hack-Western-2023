@@ -85,17 +85,32 @@ const RecruiterMatchingPage = () => {
     const savedApplicantEmailAddress = localStorage.getItem("APPLICANT_EMAIL_ADDRESS");
     if (savedApplicantEmailAddress) {
       const parsedEmailAddress = JSON.parse(savedApplicantEmailAddress);
-      setEmailAddress(parsedEmailAddress);
+      setApplicantEmailAddress(parsedEmailAddress);
     }
 
     const savedRecruiterEmailAddress = localStorage.getItem("RECRUITER_EMAIL_ADDRESS");
     if (savedRecruiterEmailAddress) {
       const parsedEmailAddress = JSON.parse(savedRecruiterEmailAddress);
-      setEmailAddress(parsedEmailAddress);
+      setRecruiterEmailAddress(parsedEmailAddress);
     }
   }, [])
 
   const handleUserCodeSnippetLike = () => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://127.0.0.1:5050/getApp'); // Replace with your API endpoint
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const result = await response.json();
+        setApplicantEmailAddress(result[0].Email);
+      } catch (error) {
+        alert("Error in Recruiter Matching PAge jsx: ", error);
+      }
+    };
+
+    fetchData();
+
     fetch('http://127.0.0.1:5050/addLike', {
           method: 'POST',
           headers: {

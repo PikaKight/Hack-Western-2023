@@ -39,13 +39,13 @@ useEffect(() => {
   const savedApplicantEmailAddress = localStorage.getItem("APPLICANT_EMAIL_ADDRESS");
   if (savedApplicantEmailAddress) {
     const parsedEmailAddress = JSON.parse(savedApplicantEmailAddress);
-    setEmailAddress(parsedEmailAddress);
+    setApplicantEmailAddress(parsedEmailAddress);
   }
 
   const savedRecruiterEmailAddress = localStorage.getItem("RECRUITER_EMAIL_ADDRESS");
   if (savedRecruiterEmailAddress) {
     const parsedEmailAddress = JSON.parse(savedRecruiterEmailAddress);
-    setEmailAddress(parsedEmailAddress);
+    setRecruiterEmailAddress(parsedEmailAddress);
   }
 
   const savedPhoneNumber = localStorage.getItem("USER_PHONE_NUMBER");
