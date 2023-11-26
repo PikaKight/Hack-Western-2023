@@ -148,8 +148,8 @@ const MatchingPage = () => {
                                 )}
                             </div>
                             <ButtonGroup variant="contained">
-                                <Button onClick={tempCompanyData[currentCompanyIndex] && handleCurrentCompanyIndexChange} color="error">Dislike</Button>
-                                <Button onClick={tempCompanyData[currentCompanyIndex] && handleCompanyLike} color="success">Like</Button>
+                                <Button onClick={tempCompanyData[currentCompanyIndex] && handleCurrentCompanyIndexChange} >Dislike</Button>
+                                <Button onClick={tempCompanyData[currentCompanyIndex] && handleCompanyLike} >Like</Button>
                             </ButtonGroup>
                         </Container>
                     </div>
