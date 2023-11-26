@@ -1,21 +1,13 @@
-.buttonLike {
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
+.matching-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-.buttonDislike {
-    background-color: #f44336; /* Red */
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-} 
+.matching-page-card {
+    background-color: white;
+    color: black;
+    width: 50vw;
+    height: 50vh;
+}

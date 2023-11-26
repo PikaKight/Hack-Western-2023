@@ -103,7 +103,7 @@ const AccountPage = () => {
                 <ReactQuill
                   theme="snow" 
                   value={codeSnippet}
-                  onChange={(content) => setCodeSnippet(content)}
+                  readOnly={true}
                 />
                 <TextField label="Describe What This Code Does" multiline fullWidth maxRows={5} value={codeOverview} onChange={handleCodeOverviewChange} margin="dense"></TextField>
                 <h4>Add tags</h4>
