@@ -14,6 +14,7 @@ const AccountPage = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
   const [userType, setUserType] = useState('');
+  const [company, setCompany] = useState('');
   const [codeSnippet, setCodeSnippet] = useState('');
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
   const [codeOverview, setCodeOverview] = useState('');
@@ -34,6 +35,12 @@ const AccountPage = () => {
     if (savedUserType) {
       const parsedUserType = JSON.parse(savedUserType);
       setUserType(parsedUserType);
+    }
+
+    const savedCompany = localStorage.getItem("USER_COMPANY");
+    if (savedCompany) {
+      const parsedCompany = JSON.parse(savedCompany);
+      setCompany(parsedCompany);
     }
 
     const savedCodeSnippet = localStorage.getItem("CODE_SNIPPET");
@@ -59,11 +66,16 @@ const AccountPage = () => {
   }
 
   const goToMatchingPage = () => {
-    if (isCheckboxChecked) {
-      navigate("/");
+    if (userType === 'applicant') {
+      if (isCheckboxChecked) {
+        navigate("/");
+      }
+      else {
+        alert("Please select checkbox");
+      }
     }
     else {
-      alert("Please select checkbox");
+      navigate("/");
     }
   }
 
@@ -103,7 +115,8 @@ const AccountPage = () => {
             </div>
           ) : (
             <div>
-              Company currently working at: 
+              <p>Current company: {company}</p>
+              <p>Liked profiles: </p>
             </div>
           )}
           <div className="account-page-end-buttons">

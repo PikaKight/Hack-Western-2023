@@ -113,6 +113,7 @@ const handleUserSignUp = () => {
     Password: password,
     Phone: phoneNumber,
     Applicant: userType === 'Applicant',
+    Company: company,
   }
 
   fetch('http://127.0.0.1:5050/signup', {
@@ -127,6 +128,7 @@ const handleUserSignUp = () => {
     alert('Sign up succesful, login using new details')
   })
   .catch(error => {
+    console.log('Error in UserSignUp.jsx sign up: ', error);
     alert('Error in UserSignUp.jsx sign up: ', error);
   })
 }
