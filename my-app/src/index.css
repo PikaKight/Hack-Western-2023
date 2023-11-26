@@ -1,14 +1,16 @@
 body {
+    height: 100vh;
+    width: 100vw;
     margin: 0;
     /*background-image: linear-gradient(90deg, #000055, #000077);*/
-    background-image: url("https://img.freepik.com/free-vector/realistic-emojis-background_23-2149532915.jpg");
+    background-image: url("https://images8.alphacoders.com/131/1317591.jpeg");
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
 }
 
 .glass {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.01));
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-radius: 15px;
@@ -20,4 +22,8 @@ body {
 
   .MuiContainer-root {
     margin: 30px 30px;
+  }
+
+  h1, h2, h3, h4, h5, h6, p {
+    color: #e3f2fd;
   }

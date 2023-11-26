@@ -4,5 +4,6 @@
 
 #get-started-button {
     margin-top: 15px;
+    background-color: #1976d2;
     box-shadow: 0 0 24px 0 #1976d2;
 }
