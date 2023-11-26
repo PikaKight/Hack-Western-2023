@@ -15,6 +15,8 @@ import 'react-quill/dist/quill.snow.css';
 const AccountPage = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
+  const [userType, setUserType] = useState('');
+  const [company, setCompany] = useState('');
   const [codeSnippet, setCodeSnippet] = useState('');
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
   const [codeOverview, setCodeOverview] = useState('');
@@ -29,6 +31,18 @@ const AccountPage = () => {
     if (savedUsername) {
       const parsedUsername = JSON.parse(savedUsername);
       setUsername(parsedUsername);
+    }
+
+    const savedUserType = localStorage.getItem("USER_TYPE");
+    if (savedUserType) {
+      const parsedUserType = JSON.parse(savedUserType);
+      setUserType(parsedUserType);
+    }
+
+    const savedCompany = localStorage.getItem("USER_COMPANY");
+    if (savedCompany) {
+      const parsedCompany = JSON.parse(savedCompany);
+      setCompany(parsedCompany);
     }
 
     const savedCodeSnippet = localStorage.getItem("CODE_SNIPPET");
@@ -54,11 +68,16 @@ const AccountPage = () => {
   }
 
   const goToMatchingPage = () => {
-    if (isCheckboxChecked) {
-      navigate("/");
+    if (userType === 'applicant') {
+      if (isCheckboxChecked) {
+        navigate("/");
+      }
+      else {
+        alert("Please select checkbox");
+      }
     }
     else {
-      alert("Please select checkbox");
+      navigate("/");
     }
   }
 

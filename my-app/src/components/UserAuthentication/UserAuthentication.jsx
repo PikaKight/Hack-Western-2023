@@ -12,6 +12,7 @@ const [fullName, setFullName] = useState('');
 const [emailAddress, setEmailAddress] = useState('');
 const [password, setPassword] = useState('');
 const [phoneNumber, setPhoneNumber] = useState('');
+const [company, setCompany] = useState('');
 const [userType, setUserType] = useState('');
 const [userProfile, setUserProfile] = useState([]);
 const [isSignUpSelected, setIsSignUpSelected] = useState(false);
@@ -35,6 +36,12 @@ useEffect(() => {
   if (savedPhoneNumber) {
     const parsedPhoneNumber = JSON.parse(savedPhoneNumber);
     setPhoneNumber(parsedPhoneNumber);
+  }
+
+  const savedCompany = localStorage.getItem("USER_COMPANY");
+  if (savedCompany) {
+    const parsedCompany = JSON.parse(savedCompany);
+    setCompany(parsedCompany);
   }
 
   const savedUserType = localStorage.getItem("USER_TYPE");
@@ -79,6 +86,12 @@ const handlePhoneNumberChange = (event) => {
   localStorage.setItem("USER_PHONE_NUMBER", JSON.stringify(phoneNumber));
 }
 
+const handleCompanyChange = (event) => {
+  const company = event.target.value;
+  setCompany(company);
+  localStorage.setItem("USER_COMPANY", JSON.stringify(company));
+}
+
 const handleUserAuthentication = (item) => {
   if (item === "Sign Up") {
     setIsSignUpSelected(true);
@@ -100,6 +113,7 @@ const handleUserSignUp = () => {
     Password: password,
     Phone: phoneNumber,
     Applicant: userType === 'Applicant',
+    Company: company,
   }
 
   fetch('http://127.0.0.1:5050/signup', {
@@ -114,6 +128,7 @@ const handleUserSignUp = () => {
     alert('Sign up succesful, login using new details')
   })
   .catch(error => {
+    console.log('Error in UserSignUp.jsx sign up: ', error);
     alert('Error in UserSignUp.jsx sign up: ', error);
   })
 }
@@ -129,31 +144,28 @@ const handleUserLogin = () => {
     Password: password
   }
 
-    fetch('http://127.0.0.1:5050/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data)
-    })
-    .then(res => res.json())
-    .then(result => {
-      if (result['msg'] === "Logged In") {
-        localStorage.setItem("IS_USER_LOGGED_IN", "yes");
-        window.location.reload();
-        navigate("/account");
-      }
-      else if (result['msg'] === 'Account does not Exist') {
-        alert("Account does not exist, please create one");
-      }
-      else {
-        alert('Password is incorrect');
-      }
-    })
-    .catch(error => {
-      alert("Error in UserAuthentication.jsx file");
-    })
-  }
+  fetch('http://127.0.0.1:5050/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data)
+  })
+  .then(res => res.json())
+  .then(result => {
+    if (result['msg'] === "Logged In") {
+      localStorage.setItem("IS_USER_LOGGED_IN", "yes");
+      window.location.reload();
+      navigate("/account");
+    }
+    else {
+      alert("Password incorrect");
+    }
+  })
+  .catch(error => {
+    alert("Account does not exist, please create one");
+  })
+}
 
 // localStorage.clear();
 
@@ -172,7 +184,7 @@ return (
               <TextField fullWidth label="Full Name" variant="outlined" size="small" value={fullName} onChange={handleFullNameChange} margin="dense" />
               <TextField fullWidth label="Email Address" variant="outlined" size="small" value={emailAddress} onChange={handleEmailAddressChange} margin="dense" />
               <TextField fullWidth label="Password" variant="outlined" size="small" value={password} onChange={handlePasswordChange} type="password" margin="dense" />
-              <TextField fullWidth label="Email Address" variant="outlined" size="small" type="number" value={phoneNumber} onChange={handlePhoneNumberChange} margin="dense"/>
+              <TextField fullWidth label="Phone number" variant="outlined" size="small" type="number" value={phoneNumber} onChange={handlePhoneNumberChange} margin="dense"/>
               <FormControl fullWidth margin="dense">
                 <InputLabel id="user-type-label">User Type</InputLabel>
                 <Select value={userType} onChange={handleUserTypeChange} labelId="user-type-label" label="User Type">
@@ -180,6 +192,9 @@ return (
                   <MenuItem value={'Recruiter'}>Recruiter</MenuItem>
                 </Select>
               </FormControl>
+              {userType === 'Recruiter' && (
+                <TextField fullWidth label="Company" variant="outlined" size="small" type="text" value={company} onChange={handleCompanyChange} margin="dense"/>  
+              )}
               <Button variant="contained" onClick={handleUserSignUp}>Sign Up</Button>
             </div>
           ) : (
@@ -190,10 +205,11 @@ return (
               <Button variant="contained" onClick={handleUserLogin}>Login</Button>
             </div>
           )}
-        </div>
-      </Container>
+          </div>
+        </Container>
+      </div>
     </div>
-  </div>)
+  )
 }
 
 export default UserProfile;

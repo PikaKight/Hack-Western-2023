@@ -1,9 +1,12 @@
+import base64
 import os
 import requests
 import json
 
 from dotenv import load_dotenv
 from infobip_channels.email.channel import EmailChannel
+from database import getOne
+# Add attachments as array of binary object
 
 load_dotenv('./.env')
 
@@ -15,8 +18,8 @@ SUBJECT = "New Applicant Referal"
 PROJNAME = "PROJECTNAME"
 
 
-def sendRef(revEmail, contactName, applicant, appEmail,resume=None):
-    message = f"Dear {contactName},\n\n{applicant} has recieved 5 likes on {PROJNAME} from your devplopers. {applicant}'s contact is {appEmail} attached {applicant}'s resumé.\n\nThank you for using {PROJNAME}.\n\nSincerely,\n{PROJNAME} Team"
+def sendRef(revEmail, contactName, applicant, appEmail, resumeLink):
+    message = f"Dear {contactName},\n\n{applicant} has recieved 5 likes on {PROJNAME} from your devplopers. {applicant}'s contact is {appEmail} and here is the link to their resumé.\n\n{resumeLink}\n\nThank you for using {PROJNAME}.\n\nSincerely,\n{PROJNAME} Team"
     
     print(BASE_URL)
     print(API)
@@ -36,4 +39,5 @@ def sendRef(revEmail, contactName, applicant, appEmail,resume=None):
     print(response)
 
 if __name__ == "__main__":
-    sendRef("mtuenmuk@uwo.ca", 'Mars', 'Marc', 'mtuenmuk@uwo.ca')
+    sendRef("mtuenmuk@uwo.ca", 'Mars', 'Marc', 'mtuenmuk@uwo.ca', "https://drive.google.com/file/d/1TrZZhivIBYYbJLGj4oC6pdrRnLUaqdX5/view?usp=sharing")
+    # sendRefAPI("mtuenmuk@uwo.ca", 'Mars', 'Marc', 'mtuenmuk@uwo.ca', resume, filename)
