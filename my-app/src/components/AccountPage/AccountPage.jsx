@@ -87,6 +87,12 @@ const AccountPage = () => {
     localStorage.setItem("CODE_OVERVIEW", JSON.stringify(codeOverview));
   }
 
+  const handleCodeSnippetChange = (event) => {
+    const codeSnippet = event;
+    setCodeSnippet(codeSnippet);
+    localStorage.setItem("CODE_SNIPPET", JSON.stringify(codeSnippet));
+  }
+
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
   return (
@@ -103,7 +109,7 @@ const AccountPage = () => {
                 <ReactQuill
                   theme="snow" 
                   value={codeSnippet}
-                  readOnly={true}
+                  onChange={(content) => handleCodeSnippetChange(content)}
                 />
                 <TextField label="Describe What This Code Does" multiline fullWidth maxRows={5} value={codeOverview} onChange={handleCodeOverviewChange} margin="dense"></TextField>
                 <h4>Add tags</h4>

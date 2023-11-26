@@ -50,8 +50,8 @@ const MatchingPage = () => {
             <NavigationBar />
             <ReactQuill
                 theme="snow" 
-                value={codeSnippet}
-                onChange={(content) => setCodeSnippet(content)}
+                value={"hi there"}
+                readOnly={true}
             />
         </div>
     );
