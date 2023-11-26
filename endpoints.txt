@@ -36,7 +36,8 @@ POST http://127.0.0.1:5050/addUser
 {
     Email,
     Code,
-    Description
+    Description,
+    Resume
 }
 
 POST http://127.0.0.1:5050/addLike
