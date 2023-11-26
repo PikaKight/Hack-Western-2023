@@ -1,11 +1,13 @@
 import os
+import json
 
 from flask import Flask, jsonify, request
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
 
+from bson import json_util
 from dotenv import load_dotenv
-from database import insertOne, getOne, checkExist, updateOne
+from database import insertOne, getOne, checkExist, updateOne, getAll 
 from emailOut import sendRef
 
 load_dotenv('.env')
@@ -192,6 +194,15 @@ def addLike():
     })
 
     return res
+
+
+@app.route('/getCompany', methods=["GET"])
+def getCompany():
+    companies = getAll('Company')
+
+    print(companies)
+
+    return json.loads(json_util.dumps(companies))
 
 
 if __name__ == "__main__":

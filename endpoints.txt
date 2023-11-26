@@ -43,3 +43,16 @@ POST http://127.0.0.1:5050/addLike
     Email,
     Company
 }
+
+GET http://127.0.0.1:5050/getCompany
+
+Will Return:
+{
+    Bio,
+    ContactEmail,
+    ContactName,
+    Loc,
+    Name,
+    Tech Stack,
+    Type
+}
