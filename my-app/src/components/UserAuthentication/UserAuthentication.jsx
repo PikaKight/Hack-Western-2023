@@ -3,7 +3,7 @@ import "./UserAuthentication.css";
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import LoadingIcons from 'react-loading-icons'
-import { Select, FormControl, MenuItem, InputLabel, Container, Box } from '@mui/material';
+import { Select, FormControl, MenuItem, InputLabel, Container, TextField, ButtonGroup, Button } from '@mui/material';
 
 import { useNavigate } from "react-router-dom";
 
@@ -129,38 +129,40 @@ const handleUserLogin = () => {
     Password: password
   }
 
-  fetch('http://127.0.0.1:5050/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data)
-  })
-  .then(res => res.json())
-  .then(result => {
-    if (result['msg'] === "Logged In") {
-      localStorage.setItem("IS_USER_LOGGED_IN", "yes");
-      window.location.reload();
-      navigate("/account");
-    }
-    else {
-      alert("Password incorrect");
-    }
-  })
-  .catch(error => {
-    alert("Account does not exist, please create one");
-  })
-}
+    fetch('http://127.0.0.1:5050/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(result => {
+      if (result['msg'] === "Logged In") {
+        localStorage.setItem("IS_USER_LOGGED_IN", "yes");
+        window.location.reload();
+        navigate("/account");
+      }
+      else if (result['msg'] === 'Account does not Exist') {
+        alert("Account does not exist, please create one");
+      }
+      else {
+        alert('Password is incorrect');
+      }
+    })
+    .catch(error => {
+      alert("Error in UserAuthentication.jsx file");
+    })
+  }
 
 
             </div>
           ) : (
             <div className="user-profile-sign-up">
               <h1>Login form</h1>
-              <p>Email address: </p><input type="text" value={emailAddress} onChange={handleEmailAddressChange} placeholder="Enter email" />
-              <p>Password: </p><input type="text" value={password} onChange={handlePasswordChange} placeholder="Enter password" />
-              <p></p>
-              <button onClick={handleUserLogin}>Login</button>
+              <TextField fullWidth label="Email Address" variant="outlined" size="small" value={emailAddress} onChange={handleEmailAddressChange} margin="dense" />
+              <TextField fullWidth label="Password" variant="outlined" size="small" value={password} onChange={handlePasswordChange} type="password" margin="dense" />
+              <Button variant="contained" onClick={handleUserLogin}>Login</Button>
             </div>
           )}
         </div>
