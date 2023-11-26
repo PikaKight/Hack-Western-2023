@@ -22,6 +22,17 @@ def getOne(collection, query) -> dict:
 
     return data
 
+
+def getAll(collection) -> list:
+    col = db[collection]
+
+    data = col.find()
+
+    res = [x for x in data]
+
+    return res
+
+
 def insertFile(collection, file):
     pass
 
