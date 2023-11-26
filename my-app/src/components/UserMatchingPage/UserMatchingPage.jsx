@@ -146,7 +146,7 @@ const MatchingPage = () => {
                                         <h3>Email: {tempCompanyData[currentCompanyIndex].ContactEmail}</h3>
                                     </div>
                                 ) : (
-                                    <h1>Company Limit eached</h1>
+                                    <h1>Company Limit Reached</h1>
                                 )}
                             </div>
                             <ButtonGroup variant="contained">
