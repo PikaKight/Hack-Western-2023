@@ -152,6 +152,7 @@ def addUser():
     applicant = {
         'Email': reqData['Email'],
         'Code': reqData['Code'],
+        'Description': reqData['Description'],
         'Likes': 0,
         'Resume': reqData['Resume']
     }

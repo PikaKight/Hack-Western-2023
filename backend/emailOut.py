@@ -15,7 +15,7 @@ API = f"{os.getenv('API')}"
 
 SENDER_EMAIL = 'mtuenmuk@uwo.ca'
 SUBJECT = "New Applicant Referal"
-PROJNAME = "PROJECTNAME"
+PROJNAME = "GitTogether"
 
 
 def sendRef(revEmail, contactName, applicant, appEmail, resumeLink):
