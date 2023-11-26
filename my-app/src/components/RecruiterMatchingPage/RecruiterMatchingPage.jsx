@@ -17,8 +17,15 @@ const RecruiterMatchingPage = () => {
   const [selectedProjectTypeOptions, setSelectedProjectTypeOptions] = useState([]);
   const [selectedDatabaseOptions, setSelectedDatabaseOptions] = useState([]);
   const [selectedIndustryTargetOptions, setSelectedIndustryTargetOptions] = useState([]);
+  
 
   const [isUserCodeSnippetLiked, setIsUserCodeSnippetLiked] = useState(false);
+  const [emailAddress, setEmailAddress] = useState('');
+
+  const [applicantEmailAddress, setApplicantEmailAddress] = useState('');
+  const [recruiterEmailAddress, setRecruiterEmailAddress] = useState('');
+
+  const [company, setCompany] = useState('');
   
   useEffect(() => {
     const savedprogrammingLanguageOptions = localStorage.getItem("PROGRAMMING_LANGUAGE_OPTIONS");
@@ -62,27 +69,51 @@ const RecruiterMatchingPage = () => {
       const parsedisUserCodeSnippetLiked = JSON.parse(savedisUserCodeSnippetLiked);
       setIsUserCodeSnippetLiked(parsedisUserCodeSnippetLiked);
     }
+
+    const savedEmailAddress = localStorage.getItem("USER_EMAIL_ADDRESS");
+    if (savedEmailAddress) {
+      const parsedEmailAddress = JSON.parse(savedEmailAddress);
+      setEmailAddress(parsedEmailAddress);
+    }
+
+    const savedCompany = localStorage.getItem("USER_COMPANY");
+    if (savedCompany) {
+      const parsedCompany = JSON.parse(savedCompany);
+      setCompany(parsedCompany);
+    }
+
+    const savedApplicantEmailAddress = localStorage.getItem("APPLICANT_EMAIL_ADDRESS");
+    if (savedApplicantEmailAddress) {
+      const parsedEmailAddress = JSON.parse(savedApplicantEmailAddress);
+      setEmailAddress(parsedEmailAddress);
+    }
+
+    const savedRecruiterEmailAddress = localStorage.getItem("RECRUITER_EMAIL_ADDRESS");
+    if (savedRecruiterEmailAddress) {
+      const parsedEmailAddress = JSON.parse(savedRecruiterEmailAddress);
+      setEmailAddress(parsedEmailAddress);
+    }
   }, [])
 
   const handleUserCodeSnippetLike = () => {
-    // fetch('http://127.0.0.1:5050/addLike', {
-    //       method: 'POST',
-    //       headers: {
-    //       'Content-Type': 'application/json',
-    //       },
-    //       body: JSON.stringify({
-    //         Email: ,
-    //         Company
-    //       })
-    //   })
-    //   .then(res => res.json())
-    //   .then(result => {
-    //       console.log("the data is: ", result);
-    //   })
-    //   .catch(error => {
-    //       console.log("Error in Matching Page jsx: ", error);
-    //       alert("Error in Matching Page jsx: ", error);
-    //   })
+    fetch('http://127.0.0.1:5050/addLike', {
+          method: 'POST',
+          headers: {
+          'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            Email: applicantEmailAddress,
+            Company: company
+          })
+      })
+      .then(res => res.json())
+      .then(result => {
+          // console.log("the data is: ", result);
+      })
+      .catch(error => {
+          console.log("Error in Matching Page jsx: ", error);
+          alert("Error in Matching Page jsx: ", error);
+      })
 
     setIsUserCodeSnippetLiked(true);
   }

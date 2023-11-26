@@ -10,6 +10,10 @@ import { useNavigate } from "react-router-dom";
 const UserProfile = () => {
 const [fullName, setFullName] = useState('');
 const [emailAddress, setEmailAddress] = useState('');
+
+const [applicantEmailAddress, setApplicantEmailAddress] = useState('');
+const [recruiterEmailAddress, setRecruiterEmailAddress] = useState('');
+
 const [password, setPassword] = useState('');
 const [phoneNumber, setPhoneNumber] = useState('');
 const [company, setCompany] = useState('');
@@ -29,6 +33,18 @@ useEffect(() => {
   const savedEmailAddress = localStorage.getItem("USER_EMAIL_ADDRESS");
   if (savedEmailAddress) {
     const parsedEmailAddress = JSON.parse(savedEmailAddress);
+    setEmailAddress(parsedEmailAddress);
+  }
+
+  const savedApplicantEmailAddress = localStorage.getItem("APPLICANT_EMAIL_ADDRESS");
+  if (savedApplicantEmailAddress) {
+    const parsedEmailAddress = JSON.parse(savedApplicantEmailAddress);
+    setEmailAddress(parsedEmailAddress);
+  }
+
+  const savedRecruiterEmailAddress = localStorage.getItem("RECRUITER_EMAIL_ADDRESS");
+  if (savedRecruiterEmailAddress) {
+    const parsedEmailAddress = JSON.parse(savedRecruiterEmailAddress);
     setEmailAddress(parsedEmailAddress);
   }
 
@@ -105,6 +121,13 @@ const handleUserSignUp = () => {
   if (!(fullName && emailAddress && password && phoneNumber && userType)) {
     alert('Please fill out all the fields');
     return;
+  }
+
+  if (userType === 'Applicant') {
+    localStorage.setItem("APPLICANT_EMAIL_ADDRESS", JSON.stringify(emailAddress));
+  }
+  else {
+    localStorage.setItem("RECRUITER_EMAIL_ADDRESS", JSON.stringify(emailAddress));
   }
 
   const data = {

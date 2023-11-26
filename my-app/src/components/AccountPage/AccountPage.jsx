@@ -16,6 +16,10 @@ import './dark-theme.css';
 const AccountPage = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [emailAddress, setEmailAddress] = useState('');
+
+  const [applicantEmailAddress, setApplicantEmailAddress] = useState('');
+  const [recruiterEmailAddress, setRecruiterEmailAddress] = useState('');
+
   const [userType, setUserType] = useState('');
   const [company, setCompany] = useState('');
   const [codeSnippet, setCodeSnippet] = useState('');
@@ -32,6 +36,18 @@ const AccountPage = () => {
     const savedEmailAddress = localStorage.getItem("USER_EMAIL_ADDRESS");
     if (savedEmailAddress) {
       const parsedEmailAddress = JSON.parse(savedEmailAddress);
+      setEmailAddress(parsedEmailAddress);
+    }
+
+    const savedApplicantEmailAddress = localStorage.getItem("APPLICANT_EMAIL_ADDRESS");
+    if (savedApplicantEmailAddress) {
+      const parsedEmailAddress = JSON.parse(savedApplicantEmailAddress);
+      setEmailAddress(parsedEmailAddress);
+    }
+
+    const savedRecruiterEmailAddress = localStorage.getItem("RECRUITER_EMAIL_ADDRESS");
+    if (savedRecruiterEmailAddress) {
+      const parsedEmailAddress = JSON.parse(savedRecruiterEmailAddress);
       setEmailAddress(parsedEmailAddress);
     }
 
