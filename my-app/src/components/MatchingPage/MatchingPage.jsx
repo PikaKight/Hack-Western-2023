@@ -1,7 +1,7 @@
 import "./MatchingPage.css";
 
 import { useEffect, useState } from "react";
-import { Typography } from "@mui/material";
+import { Container, Typography, ButtonGroup, Button } from "@mui/material";
 import NavigationBar from "../Common/NavigationBar/NavigationBar";
 
 import ReactQuill from 'react-quill';
@@ -124,25 +124,31 @@ const MatchingPage = () => {
         <div>
             <NavigationBar />
             <div className="matching-page">
-                <div className="matching-page-card">
-                    {tempCompanyData && tempCompanyData[currentCompanyIndex] ? (
-                        <div>
-                            <p>{tempCompanyData[currentCompanyIndex].Name}</p>
-                            <p>{tempCompanyData[currentCompanyIndex].Loc}</p>
-                            <p>{tempCompanyData[currentCompanyIndex].Type}</p>
-                            <p>{tempCompanyData[currentCompanyIndex].Bio}</p>
-                            <p>{tempCompanyData[currentCompanyIndex].ContactName}</p>
-                            <p>{tempCompanyData[currentCompanyIndex].ContactEmail}</p>
-                            <p>{tempCompanyData[currentCompanyIndex].Tech}</p>
-                        </div>
-                    ) : (
-                        <h1>Company limit reached</h1>
-                    )}
-                </div>
-                <div className="matching-page-buttons">
-                    <button onClick={tempCompanyData[currentCompanyIndex] && handleCompanyLike}>Like</button>
-                    <button onClick={tempCompanyData[currentCompanyIndex] && handleCurrentCompanyIndexChange}>Dislike</button>
-                </div>
+                <Container maxWidth="md">
+                    <div className="glass">
+                        <Container maxWidth="md" align="center">
+                            <div className="matching-page-card">
+                                {tempCompanyData && tempCompanyData[currentCompanyIndex] ? (
+                                    <div>
+                                        <p>{tempCompanyData[currentCompanyIndex].Name}</p>
+                                        <p>{tempCompanyData[currentCompanyIndex].Loc}</p>
+                                        <p>{tempCompanyData[currentCompanyIndex].Type}</p>
+                                        <p>{tempCompanyData[currentCompanyIndex].Bio}</p>
+                                        <p>{tempCompanyData[currentCompanyIndex].ContactName}</p>
+                                        <p>{tempCompanyData[currentCompanyIndex].ContactEmail}</p>
+                                        <p>{tempCompanyData[currentCompanyIndex].Tech}</p>
+                                    </div>
+                                ) : (
+                                    <h1>Company limit reached</h1>
+                                )}
+                            </div>
+                            <ButtonGroup variant="contained">
+                                <Button onClick={tempCompanyData[currentCompanyIndex] && handleCurrentCompanyIndexChange} color="error">Dislike</Button>
+                                <Button onClick={tempCompanyData[currentCompanyIndex] && handleCompanyLike} color="success">Like</Button>
+                            </ButtonGroup>
+                        </Container>
+                    </div>
+                </Container>
             </div>
         </div>
     );
