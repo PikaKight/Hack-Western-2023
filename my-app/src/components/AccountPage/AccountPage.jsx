@@ -11,6 +11,7 @@ import { Select, FormControl, MenuItem, InputLabel, Container, TextField, Button
 
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import './dark-theme.css';
 
 const AccountPage = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -98,19 +99,18 @@ const AccountPage = () => {
 
   return (
     <div>
-    <NavigationBar />
+      <NavigationBar />
       {isLoggedIn ? (
         <Container maxWidth="lg">
           <div class="glass">
             <h1>{userType} Profile</h1>
-            <h4>Name: {username}</h4>
             {userType === 'Applicant' ? (
               <div>
                 <h3>Add Code Snippet Below:</h3>
                 <ReactQuill
-                  theme="snow" 
+                  theme="snow"
                   value={codeSnippet}
-                  onChange={(content) => handleCodeSnippetChange(content)}
+                  onChange={handleCodeSnippetChange}
                 />
                 <TextField label="Describe What This Code Does" multiline fullWidth maxRows={5} value={codeOverview} onChange={handleCodeOverviewChange} margin="dense"></TextField>
                 <h4>Add tags</h4>
