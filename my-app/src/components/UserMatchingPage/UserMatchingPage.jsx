@@ -1,4 +1,4 @@
-import "./MatchingPage.css";
+import "./UserMatchingPage.css";
 
 import { useEffect, useState } from "react";
 import { Container, Typography, ButtonGroup, Button } from "@mui/material";
