@@ -68,9 +68,10 @@ const AccountPage = () => {
   }
 
   const goToMatchingPage = () => {
-    if (userType === 'applicant') {
+    console.log("user type is: ", userType);
+    if (userType === 'Applicant') {
       if (isCheckboxChecked) {
-        navigate("/");
+        navigate("/matching");
       }
       else {
         alert("Please select checkbox");
