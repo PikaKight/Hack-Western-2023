@@ -113,6 +113,8 @@ const CodeSnippetTags = () => {
     localStorage.setItem("INDUSTRY_TARGET_OPTIONS", JSON.stringify(event));
   }
 
+  
+
   return (
     <div className="code-snippet">
       <p>Programming language</p>
