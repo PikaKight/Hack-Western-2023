@@ -6,6 +6,7 @@ from flask_cors import CORS
 
 from dotenv import load_dotenv
 from database import insertOne, getOne, checkExist, updateOne
+from emailOut import sendRef
 
 load_dotenv('.env')
 
@@ -113,6 +114,8 @@ def addProfile():
         'Loc': reqData['Loc'],
         'Type': reqData['Type'],
         'Tech Stack': reqData['Tech'],
+        'ContactName': reqData['ContactName'],
+        'ContactEmail': reqData['ContactEmail'],
         'Bio': reqData['Bio']
     }
 
@@ -163,8 +166,20 @@ def addLike():
     profile = getOne('Applicant', {
         'Email': reqData['Email']
     })
+    
+    user = getOne('Account', {
+        'Email': reqData['Email']
+    })
 
     likes = profile['Likes'] + 1
+
+    company = getOne('Company', {
+        'Name': reqData['Company']
+    })
+
+    if likes == 5:
+        
+        sendRef(company['ContactEmail'], company['ContactName'], user['Name'])
 
     updateOne('Applicant', {
         'Email': reqData['Email']
@@ -177,6 +192,7 @@ def addLike():
     })
 
     return res
+
 
 if __name__ == "__main__":
     app.run(debug=True, port=5050)

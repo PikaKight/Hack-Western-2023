@@ -26,6 +26,8 @@ POST http://127.0.0.1:5050/addProfile
         Loc,
         Type,
         Tech,
+        ContactName,
+        ContactEmail,
         Bio
 }
 
@@ -38,5 +40,6 @@ POST http://127.0.0.1:5050/addUser
 POST http://127.0.0.1:5050/addLike
 
 {
-    Email
+    Email,
+    Company
 }
