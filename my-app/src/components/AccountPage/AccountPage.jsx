@@ -79,7 +79,7 @@ const AccountPage = () => {
       }
     }
     else {
-      navigate("/");
+      navigate("/matching");
     }
   }
 
