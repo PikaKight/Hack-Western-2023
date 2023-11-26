@@ -2,11 +2,7 @@ import "./UserAuthentication.css";
 
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import NavigationBar from "../Common/NavigationBar/NavigationBar";
+import { Select, FormControl, MenuItem, InputLabel, Container, Box } from '@mui/material';
 
 import { useNavigate } from "react-router-dom";
 
@@ -159,42 +155,45 @@ const UserProfile = () => {
 
   return (
     <div>
-      <NavigationBar/>
-      <div className="user-profile">
-        <p>Either we do not have an account with you or you may have logged out.</p>
-        <button onClick={() => handleUserAuthentication("Login")}>Login</button> / <button className="user-profile-buttons" onClick={() => handleUserAuthentication("Sign Up")}>Sign Up</button>
-        {isSignUpSelected ? (
-          <div className="user-profile-sign-up">
-            <h1>Sign up form</h1>
-            <p>Full name: </p><input type="text" value={fullName} onChange={handleFullNameChange} />
-            <p>Email address: </p><input type="text" value={emailAddress} onChange={handleEmailAddressChange} />
-            <p>Password: </p><input type="text" value={password} onChange={handlePasswordChange} />
-            <p>Phone number: </p><input type="number" value={phoneNumber} onChange={handlePhoneNumberChange} />
-            <div className="user-profile-user-type">
-              <FormControl fullWidth>
-                <InputLabel>User Type</InputLabel>
-                <Select
-                  value={userType}
-                  onChange={handleUserTypeChange}
-                >
-                  <MenuItem value={'Applicant'}>Applicant</MenuItem>
-                  <MenuItem value={'Recruiter'}>Recruiter</MenuItem>
-                </Select>
-              </FormControl>
-            </div>
+      <div class="user-profile">
+        <Container maxWidth="sm">
+          <div class="glass">
+            <p>Either we do not have an account with you or you may have logged out.</p>
+            <button onClick={() => handleUserAuthentication("Login")}>Login</button> / <button className="user-profile-buttons" onClick={() => handleUserAuthentication("Sign Up")}>Sign Up</button>
+            {isSignUpSelected ? (
+              <div className="user-profile-sign-up">
+                <h1>Sign up form</h1>
+                <p>Full name: </p><input type="text" value={fullName} onChange={handleFullNameChange} />
+                <p>Email address: </p><input type="text" value={emailAddress} onChange={handleEmailAddressChange} />
+                <p>Password: </p><input type="text" value={password} onChange={handlePasswordChange} />
+                <p>Phone number: </p><input type="number" value={phoneNumber} onChange={handlePhoneNumberChange} />
+                <div className="user-profile-user-type">
+                  <FormControl fullWidth>
+                    <InputLabel>User Type</InputLabel>
+                    <Select
+                      value={userType}
+                      onChange={handleUserTypeChange}
+                    >
+                      <MenuItem value={'Applicant'}>Applicant</MenuItem>
+                      <MenuItem value={'Recruiter'}>Recruiter</MenuItem>
+                    </Select>
+                  </FormControl>
+                </div>
 
-            <button onClick={handleUserSignUp}>Sign Up</button>
-          </div>
-        ) : (
-          <div className="user-profile-sign-up">
-            <h1>Login form</h1>
-            <p>Email address: </p><input type="text" value={emailAddress} onChange={handleEmailAddressChange} placeholder="Enter email" />
-            <p>Password: </p><input type="text" value={password} onChange={handlePasswordChange} placeholder="Enter password" />
+                <button onClick={handleUserSignUp}>Sign Up</button>
+              </div>
+            ) : (
+              <div className="user-profile-sign-up">
+                <h1>Login form</h1>
+                <p>Email address: </p><input type="text" value={emailAddress} onChange={handleEmailAddressChange} placeholder="Enter email" />
+                <p>Password: </p><input type="text" value={password} onChange={handlePasswordChange} placeholder="Enter password" />
 
-            <p></p>
-            <button onClick={handleUserLogin}>Login</button>
+                <p></p>
+                <button onClick={handleUserLogin}>Login</button>
+              </div>
+            )}
           </div>
-        )}
+        </Container>
       </div>
     </div>
   )
