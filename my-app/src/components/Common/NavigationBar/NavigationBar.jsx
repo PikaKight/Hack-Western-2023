@@ -22,7 +22,7 @@ const NavigationBar = () => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>App Name</Typography>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}></Typography>
           <Button color="inherit" onClick={goToHomePage}>Home</Button>
           <Button color="inherit" onClick={goToAccountPage}>Login</Button>
           <Button color="inherit" onClick={goToMatchingPage}>Matching</Button>
