@@ -129,28 +129,31 @@ const handleUserLogin = () => {
     Password: password
   }
 
-  fetch('http://127.0.0.1:5050/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data)
-  })
-  .then(res => res.json())
-  .then(result => {
-    if (result['msg'] === "Logged In") {
-      localStorage.setItem("IS_USER_LOGGED_IN", "yes");
-      window.location.reload();
-      navigate("/account");
-    }
-    else {
-      alert("Password incorrect");
-    }
-  })
-  .catch(error => {
-    alert("Account does not exist, please create one");
-  })
-}
+    fetch('http://127.0.0.1:5050/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(result => {
+      if (result['msg'] === "Logged In") {
+        localStorage.setItem("IS_USER_LOGGED_IN", "yes");
+        window.location.reload();
+        navigate("/account");
+      }
+      else if (result['msg'] === 'Account does not Exist') {
+        alert("Account does not exist, please create one");
+      }
+      else {
+        alert('Password is incorrect');
+      }
+    })
+    .catch(error => {
+      alert("Error in UserAuthentication.jsx file");
+    })
+  }
 
 // localStorage.clear();
 
@@ -187,11 +190,10 @@ return (
               <Button variant="contained" onClick={handleUserLogin}>Login</Button>
             </div>
           )}
-          </div>
-        </Container>
-      </div>
+        </div>
+      </Container>
     </div>
-  )
+  </div>)
 }
 
 export default UserProfile;

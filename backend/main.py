@@ -1,11 +1,14 @@
 import os
+import json
 
 from flask import Flask, jsonify, request
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
 
+from bson import json_util
 from dotenv import load_dotenv
-from database import insertOne, getOne, checkExist, updateOne
+from database import insertOne, getOne, checkExist, updateOne, getAll 
+from emailOut import sendRef
 
 load_dotenv('.env')
 
@@ -113,6 +116,8 @@ def addProfile():
         'Loc': reqData['Loc'],
         'Type': reqData['Type'],
         'Tech Stack': reqData['Tech'],
+        'ContactName': reqData['ContactName'],
+        'ContactEmail': reqData['ContactEmail'],
         'Bio': reqData['Bio']
     }
 
@@ -163,8 +168,20 @@ def addLike():
     profile = getOne('Applicant', {
         'Email': reqData['Email']
     })
+    
+    user = getOne('Account', {
+        'Email': reqData['Email']
+    })
 
     likes = profile['Likes'] + 1
+
+    company = getOne('Company', {
+        'Name': reqData['Company']
+    })
+
+    if likes == 5:
+        
+        sendRef(company['ContactEmail'], company['ContactName'], user['Name'])
 
     updateOne('Applicant', {
         'Email': reqData['Email']
@@ -177,6 +194,21 @@ def addLike():
     })
 
     return res
+
+
+@app.route('/getCompany', methods=["GET"])
+def getCompany():
+    companies = getAll('Company')
+
+    return json.loads(json_util.dumps(companies))
+
+
+@app.route('/getApp', methods=['GET'])
+def getApplicant():
+    applicants = getAll('Applicant')
+    
+    return json.loads(json_util.dumps(applicants))
+
 
 if __name__ == "__main__":
     app.run(debug=True, port=5050)
