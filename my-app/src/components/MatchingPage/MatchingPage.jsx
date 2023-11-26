@@ -129,14 +129,19 @@ const MatchingPage = () => {
                         <Container maxWidth="md" align="center">
                             <div className="matching-page-card">
                                 {tempCompanyData && tempCompanyData[currentCompanyIndex] ? (
-                                    <div align="left" style={{padding: "15px"}}>
-                                        <p>Company: {tempCompanyData[currentCompanyIndex].Name}</p>
-                                        <p>Location: {tempCompanyData[currentCompanyIndex].Loc}</p>
-                                        <p>Type: {tempCompanyData[currentCompanyIndex].Type}</p>
-                                        <p>Bio: {tempCompanyData[currentCompanyIndex].Bio}</p>
-                                        <p>Contact: {tempCompanyData[currentCompanyIndex].ContactName}</p>
-                                        <p>Email: {tempCompanyData[currentCompanyIndex].ContactEmail}</p>
-                                        <p>Technologies: {tempCompanyData[currentCompanyIndex].Tech}</p>
+                                    <div align="left">
+                                        <h1>Company: {tempCompanyData[currentCompanyIndex].Name}</h1>
+                                        <h2>Location: {tempCompanyData[currentCompanyIndex].Loc}</h2>
+                                        <h3>Working Model: {tempCompanyData[currentCompanyIndex].Type}</h3>
+                                        <h3>Bio: {tempCompanyData[currentCompanyIndex].Bio}</h3>
+                                        <h3>Technologies: {tempCompanyData[currentCompanyIndex].Tech.map((tech, index) => (
+                                          <span key={index}>
+                                            {index > 0 && ", "}
+                                            {tech}
+                                          </span>
+                                        ))}</h3>
+                                        <h3>Contact: {tempCompanyData[currentCompanyIndex].ContactName}</h3>
+                                        <h3>Email: {tempCompanyData[currentCompanyIndex].ContactEmail}</h3>
                                     </div>
                                 ) : (
                                     <h1>Company limit reached</h1>

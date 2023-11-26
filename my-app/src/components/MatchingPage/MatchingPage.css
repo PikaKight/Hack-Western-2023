@@ -8,10 +8,7 @@
 }
 
 .matching-page-card {
-    background-color: white;
-    color: black;
-    width: 50vw;
-    height: 50vh;
+    padding: 10px 10px;
 }
 
 .matching-page button {
