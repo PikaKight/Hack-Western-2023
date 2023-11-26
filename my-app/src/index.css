@@ -1,16 +1,21 @@
 body {
     margin: 0;
+    /*background-image: linear-gradient(90deg, #000055, #000077);*/
+    background-image: url("https://img.freepik.com/free-vector/realistic-emojis-background_23-2149532915.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
 }
 
 .glass {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-radius: 15px;
     border: 4px solid rgba(255, 255, 255, 0.18);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     padding: 10px 10px;
-    margin: 0px 30px;
+    margin: 15px 0px;
   }
 
   .MuiContainer-root {
