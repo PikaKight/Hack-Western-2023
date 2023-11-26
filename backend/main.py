@@ -184,9 +184,10 @@ def addLike():
         'Name': reqData['Company']
     })
 
+
     if likes == 5:
         
-        sendRef(company['ContactEmail'], company['ContactName'], user['Name'])
+        sendRef(company['ContactEmail'], company['ContactName'], user['Name'], reqData['Email'], profile['Resume'])
 
     updateOne('Applicant', {
         'Email': reqData['Email']
