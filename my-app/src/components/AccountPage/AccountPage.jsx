@@ -15,7 +15,7 @@ import './dark-theme.css';
 
 const AccountPage = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [username, setUsername] = useState('');
+  const [emailAddress, setEmailAddress] = useState('');
   const [userType, setUserType] = useState('');
   const [company, setCompany] = useState('');
   const [codeSnippet, setCodeSnippet] = useState('');
@@ -28,10 +28,10 @@ const AccountPage = () => {
     const savedIsUserLoggedIn = localStorage.getItem("IS_USER_LOGGED_IN");
     setIsLoggedIn(savedIsUserLoggedIn === "yes");
 
-    const savedUsername = localStorage.getItem("USER_FULL_NAME");
-    if (savedUsername) {
-      const parsedUsername = JSON.parse(savedUsername);
-      setUsername(parsedUsername);
+    const savedEmailAddress = localStorage.getItem("USER_EMAIL_ADDRESS");
+    if (savedEmailAddress) {
+      const parsedEmailAddress = JSON.parse(savedEmailAddress);
+      setEmailAddress(parsedEmailAddress);
     }
 
     const savedUserType = localStorage.getItem("USER_TYPE");
@@ -72,6 +72,26 @@ const AccountPage = () => {
     console.log("user type is: ", userType);
     if (userType === 'Applicant') {
       if (isCheckboxChecked) {
+        fetch('http://127.0.0.1:5050/addUser', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            Email: emailAddress,
+            Code: codeSnippet,
+            Description: codeOverview
+          })
+        })
+        .then(res => res.json())
+        .then(result => {
+          // alert('Sign up succesful, login using new details')
+        })
+        .catch(error => {
+          console.log('Error in UserSignUp.jsx sign up: ', error);
+          alert('Error in AccountPage.jsx sign up: ', error);
+        })
+
         navigate("/matching");
       }
       else {
