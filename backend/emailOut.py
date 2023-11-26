@@ -18,8 +18,8 @@ SUBJECT = "New Applicant Referal"
 PROJNAME = "PROJECTNAME"
 
 
-def sendRef(revEmail, contactName, applicant, appEmail,resume=None):
-    message = f"Dear {contactName},\n\n{applicant} has recieved 5 likes on {PROJNAME} from your devplopers. {applicant}'s contact is {appEmail} attached {applicant}'s resumé.\n\nThank you for using {PROJNAME}.\n\nSincerely,\n{PROJNAME} Team"
+def sendRef(revEmail, contactName, applicant, appEmail, resumeLink):
+    message = f"Dear {contactName},\n\n{applicant} has recieved 5 likes on {PROJNAME} from your devplopers. {applicant}'s contact is {appEmail} and here is the link to their resumé.\n\n{resumeLink}\n\nThank you for using {PROJNAME}.\n\nSincerely,\n{PROJNAME} Team"
     
     print(BASE_URL)
     print(API)
@@ -38,32 +38,6 @@ def sendRef(revEmail, contactName, applicant, appEmail,resume=None):
 
     print(response)
 
-def sendRefAPI(revEmail, contactName, applicant, appEmail, filename, resume):
-    message = f"Dear {contactName},\n\n{applicant} has recieved 5 likes on {PROJNAME} from your devplopers. {applicant}'s contact is {appEmail} attached {applicant}'s resumé.\n\nThank you for using {PROJNAME}.\n\nSincerely,\n{PROJNAME} Team"
-
-    api = f"App {API}"
-    url = f"{BASE_URL}/email/3/send"
-    headers = {
-        'Authorization': api
-    }
-
-   
-    files = {
-        'attachment': (filename, resume)
-    }
-    
-    data = {
-        "from": SENDER_EMAIL,
-        "to": revEmail,
-        "subject": SUBJECT,
-        "text": str(message)
-    }
-
-    response = requests.post(url, headers=headers, data=data, files=files)  
-
-    print(response.json())
-
 if __name__ == "__main__":
-    # sendRef("mtuenmuk@uwo.ca", 'Mars', 'Marc', 'mtuenmuk@uwo.ca')
-    pass
+    sendRef("mtuenmuk@uwo.ca", 'Mars', 'Marc', 'mtuenmuk@uwo.ca', "https://drive.google.com/file/d/1TrZZhivIBYYbJLGj4oC6pdrRnLUaqdX5/view?usp=sharing")
     # sendRefAPI("mtuenmuk@uwo.ca", 'Mars', 'Marc', 'mtuenmuk@uwo.ca', resume, filename)

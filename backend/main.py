@@ -1,7 +1,6 @@
 import os
 import json
 import base64
-import PyPDF2
 
 from flask import Flask, jsonify, request, Response
 from flask_bcrypt import Bcrypt
@@ -10,7 +9,7 @@ from flask_cors import CORS
 from bson import json_util
 from dotenv import load_dotenv
 from database import insertOne, getOne, checkExist, updateOne, getAll, addFile
-from emailOut import sendRef, sendRefAPI
+from emailOut import sendRef
 
 load_dotenv('.env')
 
@@ -87,7 +86,8 @@ def login():
                 'Name': user['Name'],
                 'Email': user['Email'],
                 'Phone': user['Phone'],
-                'Applicant': user['Applicant']
+                'Applicant': user['Applicant'],
+                'Company': user['Company']
             } 
         })
 
@@ -256,7 +256,6 @@ def getResume():
 
     filename = applicant['Filename']
     
-    sendRefAPI("mtuenmuk@uwo.ca", 'Mars', 'Marc', 'mtuenmuk@uwo.ca', applicant['Resume'], filename)
 
     res = Response(resume,
                    mimetype='pdf',
