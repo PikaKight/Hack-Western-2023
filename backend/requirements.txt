@@ -4,3 +4,4 @@ infobip-api-python-sdk
 python-dotenv
 flask_bcrypt
 flask-cors
+PyPDF2

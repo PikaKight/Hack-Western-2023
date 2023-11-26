@@ -41,6 +41,13 @@ def updateOne(collection, query, newVal):
     col.update_one(query, {
         "$set": newVal})
 
+
+def addFile(collection, query, file):
+    col = db[collection]
+    col.update_one(query, {
+        "$set": file})
+
+
 def checkExist(collection, query) -> bool:
     col = db[collection]
     
