@@ -200,9 +200,14 @@ def addLike():
 def getCompany():
     companies = getAll('Company')
 
-    print(companies)
-
     return json.loads(json_util.dumps(companies))
+
+
+@app.route('/getApp', methods=['GET'])
+def getApplicant():
+    applicants = getAll('Applicant')
+    
+    return json.loads(json_util.dumps(applicants))
 
 
 if __name__ == "__main__":
