@@ -187,11 +187,11 @@ return (
               <p></p>
               <button onClick={handleUserLogin}>Login</button>
             </div>
-          )
+          )}
         </div>
       </Container>
     </div>
-  </div>
+  </div>)
 }
 
 export default UserProfile;
