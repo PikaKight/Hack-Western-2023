@@ -129,33 +129,55 @@ const handleUserLogin = () => {
     Password: password
   }
 
-    fetch('http://127.0.0.1:5050/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data)
-    })
-    .then(res => res.json())
-    .then(result => {
-      if (result['msg'] === "Logged In") {
-        localStorage.setItem("IS_USER_LOGGED_IN", "yes");
-        window.location.reload();
-        navigate("/account");
-      }
-      else if (result['msg'] === 'Account does not Exist') {
-        alert("Account does not exist, please create one");
-      }
-      else {
-        alert('Password is incorrect');
-      }
-    })
-    .catch(error => {
-      alert("Error in UserAuthentication.jsx file");
-    })
-  }
+  fetch('http://127.0.0.1:5050/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data)
+  })
+  .then(res => res.json())
+  .then(result => {
+    if (result['msg'] === "Logged In") {
+      localStorage.setItem("IS_USER_LOGGED_IN", "yes");
+      window.location.reload();
+      navigate("/account");
+    }
+    else {
+      alert("Password incorrect");
+    }
+  })
+  .catch(error => {
+    alert("Account does not exist, please create one");
+  })
+}
 
+// localStorage.clear();
 
+return (
+  <div>
+    <div class="user-profile">
+      <Container maxWidth="sm">
+        <div class="glass">
+          <ButtonGroup variant="contained">
+            <Button onClick={() => handleUserAuthentication("Login")}>Login</Button>
+            <Button onClick={() => handleUserAuthentication("Sign Up")}>Sign Up</Button>
+          </ButtonGroup>
+          {isSignUpSelected ? (
+            <div className="user-profile-sign-up">
+              <h1>Sign Up</h1>
+              <TextField fullWidth label="Full Name" variant="outlined" size="small" value={fullName} onChange={handleFullNameChange} margin="dense" />
+              <TextField fullWidth label="Email Address" variant="outlined" size="small" value={emailAddress} onChange={handleEmailAddressChange} margin="dense" />
+              <TextField fullWidth label="Password" variant="outlined" size="small" value={password} onChange={handlePasswordChange} type="password" margin="dense" />
+              <TextField fullWidth label="Email Address" variant="outlined" size="small" type="number" value={phoneNumber} onChange={handlePhoneNumberChange} margin="dense"/>
+              <FormControl fullWidth margin="dense">
+                <InputLabel id="user-type-label">User Type</InputLabel>
+                <Select value={userType} onChange={handleUserTypeChange} labelId="user-type-label" label="User Type">
+                  <MenuItem value={'Applicant'}>Applicant</MenuItem>
+                  <MenuItem value={'Recruiter'}>Recruiter</MenuItem>
+                </Select>
+              </FormControl>
+              <Button variant="contained" onClick={handleUserSignUp}>Sign Up</Button>
             </div>
           ) : (
             <div className="user-profile-sign-up">
@@ -165,10 +187,11 @@ const handleUserLogin = () => {
               <Button variant="contained" onClick={handleUserLogin}>Login</Button>
             </div>
           )}
-        </div>
-      </Container>
+          </div>
+        </Container>
+      </div>
     </div>
-  </div>)
+  )
 }
 
 export default UserProfile;
