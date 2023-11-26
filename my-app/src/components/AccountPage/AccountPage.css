@@ -1,0 +1,15 @@
+.account-page-end-buttons {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 120px;
+}
+
+.account-page-end-buttons button {
+  margin-bottom: 10px;
+}
+
+.account-page-checkbox {
+  display: flex;
+  flex-direction: row;
+}

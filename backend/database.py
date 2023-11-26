@@ -22,8 +22,24 @@ def getOne(collection, query) -> dict:
 
     return data
 
+
+def getAll(collection) -> list:
+    col = db[collection]
+
+    data = col.find()
+
+    res = [x for x in data]
+
+    return res
+
+
 def insertFile(collection, file):
     pass
+
+def updateOne(collection, query, newVal):
+    col = db[collection]
+    col.update_one(query, {
+        "$set": newVal})
 
 def checkExist(collection, query) -> bool:
     col = db[collection]

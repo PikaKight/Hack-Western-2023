@@ -1,11 +1,14 @@
 import os
+import json
 
 from flask import Flask, jsonify, request
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
 
+from bson import json_util
 from dotenv import load_dotenv
-from database import insertOne, getOne, checkExist
+from database import insertOne, getOne, checkExist, updateOne, getAll 
+from emailOut import sendRef
 
 load_dotenv('.env')
 
@@ -16,6 +19,7 @@ app = Flask(__name__)
 CORS(app, origins="*", supports_credentials=True)
 
 bcrypt = Bcrypt(app)
+
 
 @app.route("/signup", methods=["POST"])
 def signup():
@@ -50,6 +54,7 @@ def signup():
     })
 
     return response
+
 
 @app.route("/login", methods=["POST"])
 def login():
@@ -90,6 +95,7 @@ def login():
 
     return res
 
+
 @app.route('/addProfile', methods=["POST"])
 def addProfile():
     reqData = request.json
@@ -110,6 +116,8 @@ def addProfile():
         'Loc': reqData['Loc'],
         'Type': reqData['Type'],
         'Tech Stack': reqData['Tech'],
+        'ContactName': reqData['ContactName'],
+        'ContactEmail': reqData['ContactEmail'],
         'Bio': reqData['Bio']
     }
 
@@ -121,15 +129,86 @@ def addProfile():
 
     return res
 
+
 @app.route('/addUser', methods=["POST"])
 def addUser():
     reqData = request.json
 
-    res = {
-        'msg': 'Applicant Profile Created'
+    isExist = checkExist('Applicant', {
+        'Email': reqData['Email']
+    })
+
+    if isExist:
+        res = jsonify({
+            'msg': 'Applicant Profile Already Exist'
+        })
+
+        return res
+    
+    applicant = {
+        'Email': reqData['Email'],
+        'Code': reqData['Code'],
+        'Likes': 0
     }
 
+    insertOne('Applicant', applicant)
+
+    res = jsonify({
+        'msg': 'Applicant Profile Created'
+    })
+
     return res
+
+
+@app.route('/addLike', methods=["POST"])
+def addLike():
+    
+    reqData = request.json
+
+    profile = getOne('Applicant', {
+        'Email': reqData['Email']
+    })
+    
+    user = getOne('Account', {
+        'Email': reqData['Email']
+    })
+
+    likes = profile['Likes'] + 1
+
+    company = getOne('Company', {
+        'Name': reqData['Company']
+    })
+
+    if likes == 5:
+        
+        sendRef(company['ContactEmail'], company['ContactName'], user['Name'])
+
+    updateOne('Applicant', {
+        'Email': reqData['Email']
+    },{
+        'Likes': likes
+    })
+
+    res = jsonify({
+        'msg': 'Added Like'
+    })
+
+    return res
+
+
+@app.route('/getCompany', methods=["GET"])
+def getCompany():
+    companies = getAll('Company')
+
+    return json.loads(json_util.dumps(companies))
+
+
+@app.route('/getApp', methods=['GET'])
+def getApplicant():
+    applicants = getAll('Applicant')
+    
+    return json.loads(json_util.dumps(applicants))
+
 
 if __name__ == "__main__":
     app.run(debug=True, port=5050)
