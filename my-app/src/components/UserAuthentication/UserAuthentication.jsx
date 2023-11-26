@@ -149,12 +149,15 @@ const UserProfile = () => {
         window.location.reload();
         navigate("/account");
       }
+      else if (result['msg'] === 'Account does not Exist') {
+        alert("Account does not exist, please create one");
+      }
       else {
-        alert("Password incorrect");
+        alert('Password is incorrect');
       }
     })
     .catch(error => {
-      alert("Account does not exist, please create one");
+      alert("Error in UserAuthentication.jsx file");
     })
   }
 

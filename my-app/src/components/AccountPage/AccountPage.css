@@ -8,3 +8,8 @@
 .account-page-end-buttons button {
   margin-bottom: 10px;
 }
+
+.account-page-checkbox {
+  display: flex;
+  flex-direction: row;
+}
