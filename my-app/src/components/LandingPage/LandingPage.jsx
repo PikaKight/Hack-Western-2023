@@ -2,7 +2,7 @@ import "./LandingPage.css";
 
 import { useNavigate } from "react-router-dom";
 import NavigationBar from "../Common/NavigationBar/NavigationBar";
-import { Typography, Button } from "@mui/material";
+import { Typography, Container, Grid, Button } from "@mui/material";
 
 
 const LandingPage = () => {
@@ -15,12 +15,26 @@ const LandingPage = () => {
   return (
     <div>
       <NavigationBar/>
-      <div className="navigation-bar">
-        <h1 className="navigation-bar-title">Welcome to</h1>
-        <h2>Revolutionizing Job Referrals!</h2>
-        <h2 className="navigation-bar-second-title">Supercharge your job search and open the door to a world of exciting career opportunities.</h2>
-        <Button variant="contained" align="center" onClick={goToAccountPage}>Get Started</Button>
-      </div>
+      <Container maxWidth="lg">
+          <Grid container spacing={2}>
+            <Grid item xs={6}>
+              <div class="glass" id="title-text">
+                <Typography variant="h2">WELCOME TO</Typography>
+                <Typography variant="h2">[APP NAME]</Typography>
+                <Typography variant="h5">Revolutionizing Job Referrals!</Typography>
+                <Button id="get-started-button" variant="contained" align="center" onClick={goToAccountPage} margin="normal">Get Started</Button>
+              </div>
+              <div class="glass">
+                <Typography variant="h6">Supercharge your job search and open the door to a world of exciting career opportunities.</Typography>
+              </div>
+            </Grid>
+            <Grid item xs={6}>
+              <div class="glass">
+                <img width="100%" src="https://media.istockphoto.com/id/1344688156/photo/portrait-of-a-man-using-a-computer-in-a-modern-office.jpg?s=612x612&w=0&k=20&c=xQsoWWZXJ1ydmmCGgnHyuVYUc7BILG1FauoHcloDnG4=" alt="code dude"></img>
+              </div>
+            </Grid>
+          </Grid>
+      </Container>
     </div>
   )
 }
