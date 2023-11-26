@@ -53,18 +53,43 @@ const MatchingPage = () => {
       }, []); 
 
       const tempCompanyData = [
-        { Name: 'CodeCrafters', Bio: 'Crafting Code for Excellence', ContactName: 'Eva', ContactEmail: 'eva@example.com', Loc: 'Local', Type: 'In-person', TechStack: ['JavaScript', 'Node.js'] },
-        { Name: 'BreakJet.ai', Bio: 'Breaking Down Projects One at a Time', ContactName: 'Marcus', ContactEmail: 'mtuenmuk@uwo.ca', Loc: 'Online', Type: 'Remote', TechStack: ['ReactJS', 'Python'] },
-        { Name: 'DataDynamo', Bio: 'Mastering Data Science', ContactName: 'Alex', ContactEmail: 'alex@example.com', Loc: 'Online', Type: 'Remote', TechStack: ['Python', 'Pandas'] },
-        { Name: 'SwiftSolutions', Bio: 'Swift Development at its Best', ContactName: 'Sophie', ContactEmail: 'sophie@example.com', Loc: 'Local', Type: 'In-person', TechStack: ['Swift', 'iOS'] },
-        { Name: 'CloudCoders', Bio: 'Coding in the Cloud', ContactName: 'Chris', ContactEmail: 'chris@example.com', Loc: 'Online', Type: 'Remote', TechStack: ['AWS', 'JavaScript'] },
-        { Name: 'CodeCrafters', Bio: 'Crafting Code for Excellence', ContactName: 'Eva', ContactEmail: 'eva@example.com', Loc: 'Local', Type: 'In-person', TechStack: ['JavaScript', 'Node.js'] },
-        { Name: 'DataDynamo', Bio: 'Mastering Data Science', ContactName: 'Alex', ContactEmail: 'alex@example.com', Loc: 'Online', Type: 'Remote', TechStack: ['Python', 'Pandas'] },
-        { Name: 'SwiftSolutions', Bio: 'Swift Development at its Best', ContactName: 'Sophie', ContactEmail: 'sophie@example.com', Loc: 'Local', Type: 'In-person', TechStack: ['Swift', 'iOS'] },
-        { Name: 'CloudCoders', Bio: 'Coding in the Cloud', ContactName: 'Chris', ContactEmail: 'chris@example.com', Loc: 'Online', Type: 'Remote', TechStack: ['AWS', 'JavaScript'] },
-        { Name: 'CodeCrafters', Bio: 'Crafting Code for Excellence', ContactName: 'Eva', ContactEmail: 'eva@example.com', Loc: 'Local', Type: 'In-person', TechStack: ['JavaScript', 'Node.js'] },
+        { Applicants: ['mtuenmuk@uwo.ca'], Name: 'CodeCrafters', Bio: 'Crafting Code for Excellence', ContactName: 'Eva', ContactEmail: 'eva@example.com', Loc: 'Local', Type: 'In-person', TechStack: ['JavaScript', 'Node.js'] },
+        { Applicants: ['mtuenmuk@uwo.ca'], Name: 'BreakJet.ai', Bio: 'Breaking Down Projects One at a Time', ContactName: 'Marcus', ContactEmail: 'mtuenmuk@uwo.ca', Loc: 'Online', Type: 'Remote', TechStack: ['ReactJS', 'Python'] },
+        { Applicants: ['mtuenmuk@uwo.ca'], Name: 'DataDynamo', Bio: 'Mastering Data Science', ContactName: 'Alex', ContactEmail: 'alex@example.com', Loc: 'Online', Type: 'Remote', TechStack: ['Python', 'Pandas'] },
+        { Applicants: ['mtuenmuk@uwo.ca'], Name: 'SwiftSolutions', Bio: 'Swift Development at its Best', ContactName: 'Sophie', ContactEmail: 'sophie@example.com', Loc: 'Local', Type: 'In-person', TechStack: ['Swift', 'iOS'] },
+        { Applicants: ['mtuenmuk@uwo.ca'], Name: 'CloudCoders', Bio: 'Coding in the Cloud', ContactName: 'Chris', ContactEmail: 'chris@example.com', Loc: 'Online', Type: 'Remote', TechStack: ['AWS', 'JavaScript'] },
+        { Applicants: ['mtuenmuk@uwo.ca'], Name: 'CodeCrafters', Bio: 'Crafting Code for Excellence', ContactName: 'Eva', ContactEmail: 'eva@example.com', Loc: 'Local', Type: 'In-person', TechStack: ['JavaScript', 'Node.js'] },
+        { Applicants: ['mtuenmuk@uwo.ca'], Name: 'DataDynamo', Bio: 'Mastering Data Science', ContactName: 'Alex', ContactEmail: 'alex@example.com', Loc: 'Online', Type: 'Remote', TechStack: ['Python', 'Pandas'] },
+        { Applicants: ['mtuenmuk@uwo.ca'], Name: 'SwiftSolutions', Bio: 'Swift Development at its Best', ContactName: 'Sophie', ContactEmail: 'sophie@example.com', Loc: 'Local', Type: 'In-person', TechStack: ['Swift', 'iOS'] },
+        { Applicants: ['mtuenmuk@uwo.ca'], Name: 'CloudCoders', Bio: 'Coding in the Cloud', ContactName: 'Chris', ContactEmail: 'chris@example.com', Loc: 'Online', Type: 'Remote', TechStack: ['AWS', 'JavaScript'] },
+        { Applicants: ['mtuenmuk@uwo.ca'], Name: 'CodeCrafters', Bio: 'Crafting Code for Excellence', ContactName: 'Eva', ContactEmail: 'eva@example.com', Loc: 'Local', Type: 'In-person', TechStack: ['JavaScript', 'Node.js'] },
       ];
+
+      console.log("the data is: ", companyData);
       
+      const handleCompanyLike = () => {
+        handleCurrentCompanyIndexChange();
+
+        fetch('http://127.0.0.1:5050/likeCompany', {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                Email: tempCompanyData[currentCompanyIndex].ContactEmail,
+                Name: tempCompanyData[currentCompanyIndex].Name
+            })
+        })
+        .then(res => res.json())
+        .then(result => {
+            console.log("the data is: ", result);
+        })
+        .catch(error => {
+            console.log("Error in Matching Page jsx: ", error);
+            alert("Error in Matching Page jsx: ", error);
+        })
+      }
+
       const handleCurrentCompanyIndexChange = () => {
         if (currentCompanyIndex < tempCompanyData.length-1) {
             setCurrentCompanyIndex(currentCompanyIndex + 1);
@@ -91,7 +116,7 @@ const MatchingPage = () => {
                     )}
                 </div>
                 <div className="matching-page-buttons">
-                    <button onClick={handleCurrentCompanyIndexChange}>Like</button>
+                    <button onClick={handleCompanyLike}>Like</button>
                     <button onClick={handleCurrentCompanyIndexChange}>Dislike</button>
                 </div>
             </div>
