@@ -1,7 +1,9 @@
 import "./UserMatchingPage.css";
 
 import { useEffect, useState } from "react";
-import { Container, Typography, ButtonGroup, Button } from "@mui/material";
+import { Container, ButtonGroup, Button } from "@mui/material";
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import NavigationBar from "../Common/NavigationBar/NavigationBar";
 
 import ReactQuill from 'react-quill';
@@ -148,8 +150,8 @@ const MatchingPage = () => {
                                 )}
                             </div>
                             <ButtonGroup variant="contained">
-                                <Button onClick={tempCompanyData[currentCompanyIndex] && handleCurrentCompanyIndexChange} >Dislike</Button>
-                                <Button onClick={tempCompanyData[currentCompanyIndex] && handleCompanyLike} >Like</Button>
+                                <Button onClick={tempCompanyData[currentCompanyIndex] && handleCurrentCompanyIndexChange} startIcon={<ThumbDownIcon />}></Button>
+                                <Button onClick={tempCompanyData[currentCompanyIndex] && handleCompanyLike} startIcon={<ThumbUpIcon />} ></Button>
                             </ButtonGroup>
                         </Container>
                     </div>

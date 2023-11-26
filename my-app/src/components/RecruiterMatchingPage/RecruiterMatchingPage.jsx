@@ -2,6 +2,9 @@ import "./RecruiterMatchingPage.css";
 import { useState, useEffect } from "react";
 import NavigationBar from "../Common/NavigationBar/NavigationBar";
 import CodeSnippetTags from "../CodeSnippetTags/CodeSnippetTags";
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import ThumbDownIcon from '@mui/icons-material/ThumbDown';
+import { ButtonGroup, Button } from "@mui/material";
 
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
@@ -115,10 +118,10 @@ const RecruiterMatchingPage = () => {
             ))}
           </div>
         </div>
-        <div className="recruiter-matching-page-buttons">
-          <button onClick={handleUserCodeSnippetLike}>Like</button>
-          <button>Dislike</button>
-        </div>
+        <ButtonGroup variant="contained">
+            <Button startIcon={<ThumbDownIcon />}></Button>
+            <Button onClick={handleUserCodeSnippetLike} startIcon={<ThumbUpIcon />} ></Button>
+        </ButtonGroup>
       </div>
         </div>
       )}
