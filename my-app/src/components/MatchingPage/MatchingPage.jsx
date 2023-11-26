@@ -19,11 +19,19 @@ const MatchingPage = () => {
 
     const [companyData, setCompanyData] = useState(null);
 
+    const [currentCompanyIndex, setCurrentCompanyIndex] = useState(0);
+
     useEffect(() => {
         const savedCodeSnippet = localStorage.getItem("CODE_SNIPPET");
         if (savedCodeSnippet) {
             const parsedCodeSnippet = JSON.parse(savedCodeSnippet);
             setCodeSnippet(parsedCodeSnippet);
+        }
+
+        const savedCompanyIndex = localStorage.getItem("COMPANY_INDEX");
+        if (savedCompanyIndex) {
+            const parsedCompanyIndex = JSON.parse(savedCompanyIndex);
+            setCurrentCompanyIndex(parsedCompanyIndex);
         }
     }, [])
 
@@ -44,20 +52,45 @@ const MatchingPage = () => {
         fetchData();
       }, []); 
 
+      const tempCompanyData = [
+        { Name: 'CodeCrafters', Bio: 'Crafting Code for Excellence', ContactName: 'Eva', ContactEmail: 'eva@example.com', Loc: 'Local', Type: 'In-person', TechStack: ['JavaScript', 'Node.js'] },
+        { Name: 'BreakJet.ai', Bio: 'Breaking Down Projects One at a Time', ContactName: 'Marcus', ContactEmail: 'mtuenmuk@uwo.ca', Loc: 'Online', Type: 'Remote', TechStack: ['ReactJS', 'Python'] },
+        { Name: 'DataDynamo', Bio: 'Mastering Data Science', ContactName: 'Alex', ContactEmail: 'alex@example.com', Loc: 'Online', Type: 'Remote', TechStack: ['Python', 'Pandas'] },
+        { Name: 'SwiftSolutions', Bio: 'Swift Development at its Best', ContactName: 'Sophie', ContactEmail: 'sophie@example.com', Loc: 'Local', Type: 'In-person', TechStack: ['Swift', 'iOS'] },
+        { Name: 'CloudCoders', Bio: 'Coding in the Cloud', ContactName: 'Chris', ContactEmail: 'chris@example.com', Loc: 'Online', Type: 'Remote', TechStack: ['AWS', 'JavaScript'] },
+        { Name: 'CodeCrafters', Bio: 'Crafting Code for Excellence', ContactName: 'Eva', ContactEmail: 'eva@example.com', Loc: 'Local', Type: 'In-person', TechStack: ['JavaScript', 'Node.js'] },
+        { Name: 'DataDynamo', Bio: 'Mastering Data Science', ContactName: 'Alex', ContactEmail: 'alex@example.com', Loc: 'Online', Type: 'Remote', TechStack: ['Python', 'Pandas'] },
+        { Name: 'SwiftSolutions', Bio: 'Swift Development at its Best', ContactName: 'Sophie', ContactEmail: 'sophie@example.com', Loc: 'Local', Type: 'In-person', TechStack: ['Swift', 'iOS'] },
+        { Name: 'CloudCoders', Bio: 'Coding in the Cloud', ContactName: 'Chris', ContactEmail: 'chris@example.com', Loc: 'Online', Type: 'Remote', TechStack: ['AWS', 'JavaScript'] },
+        { Name: 'CodeCrafters', Bio: 'Crafting Code for Excellence', ContactName: 'Eva', ContactEmail: 'eva@example.com', Loc: 'Local', Type: 'In-person', TechStack: ['JavaScript', 'Node.js'] },
+      ];
+      
+      const handleCurrentCompanyIndexChange = () => {
+        if (currentCompanyIndex < tempCompanyData.length-1) {
+            setCurrentCompanyIndex(currentCompanyIndex + 1);
+        }
+      }
+
     return (
         <div>
             <NavigationBar />
-            <div>
-                {companyData && companyData.map((companyObject, index) => (
-                    <div>
-                        <p>{companyObject.Name}</p>
-                        <p>{companyObject.Location}</p>
-                        <p>{companyObject.Type}</p>
-                        <p>{companyObject.Bio}</p>
-                        <p>{companyObject.ContactName}</p>
-                        <p>{companyObject.ContactEmail}</p>
-                    </div>
-                ))}
+            <div className="matching-page">
+                <div className="matching-page-card">
+                    {tempCompanyData && (
+                        <div>
+                            <p>{tempCompanyData[currentCompanyIndex].Name}</p>
+                            <p>{tempCompanyData[currentCompanyIndex].Loc}</p>
+                            <p>{tempCompanyData[currentCompanyIndex].Type}</p>
+                            <p>{tempCompanyData[currentCompanyIndex].Bio}</p>
+                            <p>{tempCompanyData[currentCompanyIndex].ContactName}</p>
+                            <p>{tempCompanyData[currentCompanyIndex].ContactEmail}</p>
+                        </div>
+                    )}
+                </div>
+                <div className="matching-page-buttons">
+                    <button onClick={handleCurrentCompanyIndexChange}>Like</button>
+                    <button onClick={handleCurrentCompanyIndexChange}>Dislike</button>
+                </div>
             </div>
         </div>
     );

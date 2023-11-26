@@ -1,8 +1,10 @@
+
 .matching-page {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
 }
 
 .matching-page-card {
@@ -10,4 +12,9 @@
     color: black;
     width: 50vw;
     height: 50vh;
+}
+
+.matching-page button {
+    width: 100px;
+    height: 50px;
 }
