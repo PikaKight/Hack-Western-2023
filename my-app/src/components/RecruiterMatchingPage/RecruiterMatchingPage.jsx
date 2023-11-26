@@ -104,6 +104,7 @@ const RecruiterMatchingPage = () => {
         }
         const result = await response.json();
         setApplicantEmailAddress(result[0].Email);
+        console.log("the email is: ", applicantEmailAddress);
       } catch (error) {
         alert("Error in Recruiter Matching PAge jsx: ", error);
       }
@@ -117,7 +118,7 @@ const RecruiterMatchingPage = () => {
           'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            Email: applicantEmailAddress,
+            Email: "mtuenmuk@uwo.ca",
             Company: company
           })
       })

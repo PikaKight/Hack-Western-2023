@@ -101,7 +101,7 @@ const AccountPage = () => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            Email: emailAddress,
+            Email: applicantEmailAddress,
             Code: codeSnippet,
             Description: codeOverview,
             Resume: resumeLink
