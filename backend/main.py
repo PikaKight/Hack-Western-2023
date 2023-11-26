@@ -1,13 +1,15 @@
 import os
 import json
+import base64
+import PyPDF2
 
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, Response
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
 
 from bson import json_util
 from dotenv import load_dotenv
-from database import insertOne, getOne, checkExist, updateOne, getAll 
+from database import insertOne, getOne, checkExist, updateOne, getAll, addFile
 from emailOut import sendRef
 
 load_dotenv('.env')
@@ -209,6 +211,115 @@ def getApplicant():
     
     return json.loads(json_util.dumps(applicants))
 
+
+@app.route('/addResume', methods=['POST'])
+def addResume():
+    if "Resume" not in request.files:
+        res = {
+            "error": "No Resume Found"
+        }
+
+        return res
+    
+    file = request.files["Resume"]
+    filename = file.filename
+
+    email = request.form.get('Email')
+
+    file = base64.b64encode(file.read())
+
+    addFile('Applicant', {
+        'Email': email
+    }, {
+        'Resume': file,
+        'Filename': filename
+    })
+
+    res = {
+        'msg': f"Got filename {filename}"
+    }
+
+    return res
+
+
+@app.route('/getResume', methods=['POST'])
+def getResume():
+    
+    email = request.json['Email']
+
+    applicant = getOne('Applicant', {
+        'Email': email
+    })
+
+    resume = base64.b64decode(applicant['Resume'])
+
+    filename = applicant['Filename']
+    
+    with open(f'./test/{filename}', 'wb') as f:
+        f.write(resume)
+
+    res = Response(resume,
+                   mimetype='pdf',
+                   headers={
+                       'Content-Disposition': f"attachment;filename={filename}"
+                   })
+
+    return resume
+
+
+@app.route('/addLogo', methods=['POST'])
+def addLogo():
+    if "Logo" not in request.files:
+        res = {
+            "error": "No Logo Found"
+        }
+
+        return res
+    
+    file = request.files["Logo"]
+    filename = file.filename
+
+    name = request.form.get('Name')
+
+    file = base64.b64encode(file.read())
+
+    addFile('Company', {
+        'Name': name
+    }, {
+        'Logo': file,
+        'Filename': filename
+    })
+
+    res = {
+        'msg': f"Got filename {filename}"
+    }
+
+    return res
+
+
+@app.route('/getLogo', methods=['POST'])
+def getLogo():
+    
+    name = request.json['Name']
+
+    company = getOne('Company', {
+        'Name': name
+    })
+
+    logo = base64.b64decode(company['Logo'])
+
+    filename = company['Filename']
+    
+    with open(f'./test/{filename}', 'wb') as f:
+        f.write(logo)
+
+    res = Response(logo,
+                   mimetype='png',
+                   headers={
+                       'Content-Disposition': f"attachment;filename={filename}"
+                   })
+
+    return logo
 
 if __name__ == "__main__":
     app.run(debug=True, port=5050)
