@@ -129,14 +129,14 @@ const MatchingPage = () => {
                         <Container maxWidth="md" align="center">
                             <div className="matching-page-card">
                                 {tempCompanyData && tempCompanyData[currentCompanyIndex] ? (
-                                    <div>
-                                        <p>{tempCompanyData[currentCompanyIndex].Name}</p>
-                                        <p>{tempCompanyData[currentCompanyIndex].Loc}</p>
-                                        <p>{tempCompanyData[currentCompanyIndex].Type}</p>
-                                        <p>{tempCompanyData[currentCompanyIndex].Bio}</p>
-                                        <p>{tempCompanyData[currentCompanyIndex].ContactName}</p>
-                                        <p>{tempCompanyData[currentCompanyIndex].ContactEmail}</p>
-                                        <p>{tempCompanyData[currentCompanyIndex].Tech}</p>
+                                    <div align="left" style={{padding: "15px"}}>
+                                        <p>Company: {tempCompanyData[currentCompanyIndex].Name}</p>
+                                        <p>Location: {tempCompanyData[currentCompanyIndex].Loc}</p>
+                                        <p>Type: {tempCompanyData[currentCompanyIndex].Type}</p>
+                                        <p>Bio: {tempCompanyData[currentCompanyIndex].Bio}</p>
+                                        <p>Contact: {tempCompanyData[currentCompanyIndex].ContactName}</p>
+                                        <p>Email: {tempCompanyData[currentCompanyIndex].ContactEmail}</p>
+                                        <p>Technologies: {tempCompanyData[currentCompanyIndex].Tech}</p>
                                     </div>
                                 ) : (
                                     <h1>Company limit reached</h1>
