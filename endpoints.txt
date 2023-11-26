@@ -8,7 +8,8 @@ POST http://127.0.0.1:5050/signup
     Email,
     Password,
     Phone,
-    Applicant
+    Applicant,
+    Company
 }
 
 Login
@@ -64,4 +65,22 @@ Will Return:
     Code,
     Email,
     Likes
+}
+
+POST http://127.0.0.1:5050/addResume
+form-data
+    Email, Resume
+
+POST http://127.0.0.1:5050/getResume
+{
+    Email
+}
+
+POST http://127.0.0.1:5050/addLogo
+form-data
+    Email, Logo
+
+POST http://127.0.0.1:5050/getLogo
+{
+    Name
 }

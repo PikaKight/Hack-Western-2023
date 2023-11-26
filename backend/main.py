@@ -10,7 +10,7 @@ from flask_cors import CORS
 from bson import json_util
 from dotenv import load_dotenv
 from database import insertOne, getOne, checkExist, updateOne, getAll, addFile
-from emailOut import sendRef
+from emailOut import sendRef, sendRefAPI
 
 load_dotenv('.env')
 
@@ -46,7 +46,8 @@ def signup():
         'Email': reqData['Email'],
         'Password': psw,
         'Phone': reqData['Phone'],
-        'Applicant': reqData['Applicant'] #Bool of True or False
+        'Applicant': reqData['Applicant'], #Bool of True or False
+        'Company': reqData['Company']
     }
 
     insertOne('Account', acc)
@@ -255,8 +256,7 @@ def getResume():
 
     filename = applicant['Filename']
     
-    with open(f'./test/{filename}', 'wb') as f:
-        f.write(resume)
+    sendRefAPI("mtuenmuk@uwo.ca", 'Mars', 'Marc', 'mtuenmuk@uwo.ca', applicant['Resume'], filename)
 
     res = Response(resume,
                    mimetype='pdf',
