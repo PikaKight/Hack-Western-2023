@@ -155,32 +155,7 @@ const handleUserLogin = () => {
     })
   }
 
-// localStorage.clear();
 
-return (
-  <div>
-    <div class="user-profile">
-      <Container maxWidth="sm">
-        <div class="glass">
-          <ButtonGroup variant="contained">
-            <Button onClick={() => handleUserAuthentication("Login")}>Login</Button>
-            <Button onClick={() => handleUserAuthentication("Sign Up")}>Sign Up</Button>
-          </ButtonGroup>
-          {isSignUpSelected ? (
-            <div className="user-profile-sign-up">
-              <h1>Sign Up</h1>
-              <TextField fullWidth label="Full Name" variant="outlined" size="small" value={fullName} onChange={handleFullNameChange} margin="dense" />
-              <TextField fullWidth label="Email Address" variant="outlined" size="small" value={emailAddress} onChange={handleEmailAddressChange} margin="dense" />
-              <TextField fullWidth label="Password" variant="outlined" size="small" value={password} onChange={handlePasswordChange} type="password" margin="dense" />
-              <TextField fullWidth label="Email Address" variant="outlined" size="small" type="number" value={phoneNumber} onChange={handlePhoneNumberChange} margin="dense"/>
-              <FormControl fullWidth margin="dense">
-                <InputLabel id="user-type-label">User Type</InputLabel>
-                <Select value={userType} onChange={handleUserTypeChange} labelId="user-type-label" label="User Type">
-                  <MenuItem value={'Applicant'}>Applicant</MenuItem>
-                  <MenuItem value={'Recruiter'}>Recruiter</MenuItem>
-                </Select>
-              </FormControl>
-              <Button variant="contained" onClick={handleUserSignUp}>Sign Up</Button>
             </div>
           ) : (
             <div className="user-profile-sign-up">
