@@ -4,7 +4,7 @@ import NavigationBar from "../Common/NavigationBar/NavigationBar";
 import CodeSnippetTags from "../CodeSnippetTags/CodeSnippetTags";
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
-import { ButtonGroup, Button } from "@mui/material";
+import { ButtonGroup, Button, Container } from "@mui/material";
 
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
@@ -69,63 +69,69 @@ const RecruiterMatchingPage = () => {
   }
 
   return (
-    <div>
+    <>
       <NavigationBar />
-      {isUserCodeSnippetLiked ? (
-        <div>
-          <h1>No more code to look at, time to go outside</h1>
+      <Container maxWidth="lg">
+        <div className="glass">
+          {isUserCodeSnippetLiked ? (
+            <div>
+              <h1>No more code to look at, time to go outside</h1>
+            </div>
+          ) : (
+            <div>
+              <div className="recruiter-matching-page"> 
+                <div className="recruiter-matching-page-editor">
+                  <ReactQuill
+                    theme="snow" 
+                    value={codeSnippet}
+                    readOnly={true}
+                  />
+                </div>
+                <h1>Tags</h1>
+                <div className="recruiter-matching-page-tags">
+                  <div>
+                    <h2>Programming Languages:</h2>
+                    {selectedProgrammingLanguageOptions.map((obj, index) => (
+                      <h3>{obj.label}</h3>
+                    ))}
+                  </div>
+                  <div>
+                    <h2>Problem Type:</h2>
+                    {selectedProblemTypeOptions.map((obj, index) => (
+                      <h3>{obj.label}</h3>
+                    ))}
+                  </div>
+                  <div>
+                    <h2>Project Type:</h2>
+                    {selectedProjectTypeOptions.map((obj, index) => (
+                      <h3>{obj.label}</h3>
+                    ))}
+                  </div>
+                  <div>
+                    <h2>Databases:</h2>
+                    {selectedDatabaseOptions.map((obj, index) => (
+                      <h3>{obj.label}</h3>
+                    ))}
+                  </div>
+                  <div>
+                    <h2>Industry Targets:</h2>
+                    {selectedIndustryTargetOptions.map((obj, index) => (
+                      <h3>{obj.label}</h3>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <Container maxWidth="sm" align="center">
+                <ButtonGroup variant="contained">
+                    <Button startIcon={<ThumbDownIcon />} size="large"></Button>
+                    <Button onClick={handleUserCodeSnippetLike} startIcon={<ThumbUpIcon />} size="large"></Button>
+                </ButtonGroup>
+              </Container>
+            </div>
+          )}
         </div>
-      ) : (
-        <div>
-          <div className="recruiter-matching-page"> 
-        <div className="recruiter-matching-page-editor">
-          <ReactQuill
-            theme="snow" 
-            value={codeSnippet}
-            readOnly={true}
-          />
-        </div>
-        <h1>Tags</h1>
-        <div className="recruiter-matching-page-tags">
-          <div>
-            <h2>Programming Languages:</h2>
-            {selectedProgrammingLanguageOptions.map((obj, index) => (
-              <h3>{obj.label}</h3>
-            ))}
-          </div>
-          <div>
-            <h2>Problem Type:</h2>
-            {selectedProblemTypeOptions.map((obj, index) => (
-              <h3>{obj.label}</h3>
-            ))}
-          </div>
-          <div>
-            <h2>Project Type:</h2>
-            {selectedProjectTypeOptions.map((obj, index) => (
-              <h3>{obj.label}</h3>
-            ))}
-          </div>
-          <div>
-            <h2>Databases:</h2>
-            {selectedDatabaseOptions.map((obj, index) => (
-              <h3>{obj.label}</h3>
-            ))}
-          </div>
-          <div>
-            <h2>Industry Targets:</h2>
-            {selectedIndustryTargetOptions.map((obj, index) => (
-              <h3>{obj.label}</h3>
-            ))}
-          </div>
-        </div>
-        <ButtonGroup variant="contained">
-            <Button startIcon={<ThumbDownIcon />}></Button>
-            <Button onClick={handleUserCodeSnippetLike} startIcon={<ThumbUpIcon />} ></Button>
-        </ButtonGroup>
-      </div>
-        </div>
-      )}
-    </div>
+      </Container>
+    </>
   )
 }
 
