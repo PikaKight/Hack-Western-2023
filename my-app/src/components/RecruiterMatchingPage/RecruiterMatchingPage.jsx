@@ -70,7 +70,7 @@ const RecruiterMatchingPage = () => {
       <NavigationBar />
       {isUserCodeSnippetLiked ? (
         <div>
-          <h1>User profile feedback has been given!</h1>
+          <h1>No more code to look at, time to go outside</h1>
         </div>
       ) : (
         <div>
@@ -82,36 +82,36 @@ const RecruiterMatchingPage = () => {
             readOnly={true}
           />
         </div>
-        <h2>Tags</h2>
+        <h1>Tags</h1>
         <div className="recruiter-matching-page-tags">
           <div>
-            <h4>Programming Languages:</h4>
+            <h2>Programming Languages:</h2>
             {selectedProgrammingLanguageOptions.map((obj, index) => (
-              <p>{obj.label}</p>
+              <h3>{obj.label}</h3>
             ))}
           </div>
           <div>
-            <h4>Problem Type:</h4>
+            <h2>Problem Type:</h2>
             {selectedProblemTypeOptions.map((obj, index) => (
-              <p>{obj.label}</p>
+              <h3>{obj.label}</h3>
             ))}
           </div>
           <div>
-            <h4>Project Type:</h4>
+            <h2>Project Type:</h2>
             {selectedProjectTypeOptions.map((obj, index) => (
-              <p>{obj.label}</p>
+              <h3>{obj.label}</h3>
             ))}
           </div>
           <div>
-            <h4>Databases:</h4>
+            <h2>Databases:</h2>
             {selectedDatabaseOptions.map((obj, index) => (
-              <p>{obj.label}</p>
+              <h3>{obj.label}</h3>
             ))}
           </div>
           <div>
-            <h4>Industry Targets:</h4>
+            <h2>Industry Targets:</h2>
             {selectedIndustryTargetOptions.map((obj, index) => (
-              <p>{obj.label}</p>
+              <h3>{obj.label}</h3>
             ))}
           </div>
         </div>
