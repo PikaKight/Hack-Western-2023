@@ -64,8 +64,6 @@ const MatchingPage = () => {
         { Applicants: ['mtuenmuk@uwo.ca'], Name: 'CloudCoders', Bio: 'Coding in the Cloud', ContactName: 'Chris', ContactEmail: 'chris@example.com', Loc: 'Online', Type: 'Remote', TechStack: ['AWS', 'JavaScript'] },
         { Applicants: ['mtuenmuk@uwo.ca'], Name: 'CodeCrafters', Bio: 'Crafting Code for Excellence', ContactName: 'Eva', ContactEmail: 'eva@example.com', Loc: 'Local', Type: 'In-person', TechStack: ['JavaScript', 'Node.js'] },
       ];
-
-      console.log("the data is: ", companyData);
       
       const handleCompanyLike = () => {
         handleCurrentCompanyIndexChange();
@@ -85,17 +83,14 @@ const MatchingPage = () => {
             console.log("the data is: ", result);
         })
         .catch(error => {
-            console.log("Error in Matching Page jsx: ", error);
-            alert("Error in Matching Page jsx: ", error);
+            // console.log("Error in Matching Page jsx: ", error);
+            // alert("Error in Matching Page jsx: ", error);
         })
       }
 
       const handleCurrentCompanyIndexChange = () => {
-        if (currentCompanyIndex < tempCompanyData.length-1) {
+        if (currentCompanyIndex < tempCompanyData.length) {
             setCurrentCompanyIndex(currentCompanyIndex + 1);
-        }
-        else {
-            alert("Company limit reached")
         }
       }
 
@@ -104,7 +99,7 @@ const MatchingPage = () => {
             <NavigationBar />
             <div className="matching-page">
                 <div className="matching-page-card">
-                    {tempCompanyData && (
+                    {tempCompanyData && tempCompanyData[currentCompanyIndex] ? (
                         <div>
                             <p>{tempCompanyData[currentCompanyIndex].Name}</p>
                             <p>{tempCompanyData[currentCompanyIndex].Loc}</p>
@@ -113,11 +108,13 @@ const MatchingPage = () => {
                             <p>{tempCompanyData[currentCompanyIndex].ContactName}</p>
                             <p>{tempCompanyData[currentCompanyIndex].ContactEmail}</p>
                         </div>
+                    ) : (
+                        <h1>Company limit reached</h1>
                     )}
                 </div>
                 <div className="matching-page-buttons">
-                    <button onClick={handleCompanyLike}>Like</button>
-                    <button onClick={handleCurrentCompanyIndexChange}>Dislike</button>
+                    <button onClick={tempCompanyData[currentCompanyIndex] && handleCompanyLike}>Like</button>
+                    <button onClick={tempCompanyData[currentCompanyIndex] && handleCurrentCompanyIndexChange}>Dislike</button>
                 </div>
             </div>
         </div>
