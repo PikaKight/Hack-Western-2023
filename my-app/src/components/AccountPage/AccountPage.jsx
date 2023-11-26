@@ -7,6 +7,8 @@ import Checkbox from '@mui/material/Checkbox';
 import { useNavigate } from "react-router-dom";
 import CodeSnippetTags from "../CodeSnippetTags/CodeSnippetTags";
 
+import { Select, FormControl, MenuItem, InputLabel, Container, TextField, ButtonGroup, Button, FormControlLabel, FormGroup } from '@mui/material';
+
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
@@ -89,41 +91,28 @@ const AccountPage = () => {
 
   return (
     <div>
-      <NavigationBar />
+    <NavigationBar />
       {isLoggedIn ? (
-        <div>
-          <h2>{userType} Account Page!</h2>
-          <h4>Name: {username}</h4>
-          {userType === 'Applicant' ? (
-            <div>
-              <h3>Add code snippet below:</h3>
-              <ReactQuill
-                theme="snow" 
-                value={codeSnippet}
-                onChange={(content) => setCodeSnippet(content)}
-              />
-              <div>
-                <h4>Brief overview of what this code does.</h4>
-                <textarea cols="80" rows="5" value={codeOverview} onChange={handleCodeOverviewChange}></textarea>
-              </div>
-              <h4>Add tags</h4>
-              <CodeSnippetTags />
-              <div className="account-page-checkbox">
-                <Checkbox {...label} checked={isCheckboxChecked} onChange={handleCheckboxChange} />
-                <p>I acknowledge that the provided code is a result of my own individual effort and creativity.</p>
-              </div>
-            </div>
-          ) : (
-            <div>
-              <p>Current company: {company}</p>
-              <p>Liked profiles: </p>
-            </div>
-          )}
-          <div className="account-page-end-buttons">
-            <button onClick={goToMatchingPage}>Start matching!</button>
+        <Container maxWidth="lg">
+          <div class="glass">
+            <h1>Profile</h1>
+            <h4>Name: {username}</h4>
+            <h3>Add Code Snippet Below:</h3>
+            <ReactQuill
+              theme="snow" 
+              value={codeSnippet}
+              onChange={(content) => setCodeSnippet(content)}
+            />
+            <TextField label="Describe What This Code Does" multiline fullWidth maxRows={5} value={codeOverview} onChange={handleCodeOverviewChange} margin="dense"></TextField>
+            <h4>Add tags</h4>
+            <CodeSnippetTags />
+            <FormGroup>
+              <FormControlLabel control={<Checkbox checked={isCheckboxChecked} onChange={handleCheckboxChange} />} label="I acknowledge that the provided code is a result of my own individual effort and creativity."/>
+            </FormGroup>
+            <Button variant="contained" onClick={goToMatchingPage}>Start Matching!</Button>
+            <Button variant="outlined" onClick={logOut}>Log Out</Button>
           </div>
-          <button onClick={logOut}>Log out</button>
-        </div>
+        </Container>
       ) : (
         <UserAuthentication />
       )}
