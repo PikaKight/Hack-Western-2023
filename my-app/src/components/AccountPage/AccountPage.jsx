@@ -126,7 +126,7 @@ const AccountPage = () => {
               </div>
             )}
             <Button variant="contained" onClick={goToMatchingPage}>Start Matching!</Button>
-            <Button variant="outlined" onClick={logOut}>Log Out</Button>
+            <Button variant="contained" onClick={logOut}>Log Out</Button>
           </div>
         </Container>
       ) : (
