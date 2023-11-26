@@ -21,6 +21,7 @@ const AccountPage = () => {
   const [codeSnippet, setCodeSnippet] = useState('');
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
   const [codeOverview, setCodeOverview] = useState('');
+  const [resumeLink, setResumeLink] = useState('');
 
   const navigate = useNavigate();
 
@@ -57,6 +58,12 @@ const AccountPage = () => {
       const parsedCodeOverview = JSON.parse(savedCodeOverview);
       setCodeOverview(parsedCodeOverview);
     }
+
+    const savedUserResumeLink = localStorage.getItem("USER_RESUME_LINK");
+    if (savedUserResumeLink) {
+      const parsedUserResumeLink = JSON.parse(savedUserResumeLink);
+      setResumeLink(parsedUserResumeLink);
+    }
   }, [])
 
   const logOut = () => {
@@ -80,7 +87,8 @@ const AccountPage = () => {
           body: JSON.stringify({
             Email: emailAddress,
             Code: codeSnippet,
-            Description: codeOverview
+            Description: codeOverview,
+            Resume: resumeLink
           })
         })
         .then(res => res.json())
@@ -115,6 +123,12 @@ const AccountPage = () => {
     localStorage.setItem("CODE_SNIPPET", JSON.stringify(codeSnippet));
   }
 
+  const handleResumeLinkChange = (event) => {
+    const link = event.target.value;
+    setResumeLink(link);
+    localStorage.setItem("USER_RESUME_LINK", JSON.stringify(link));
+  }
+
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
   return (
@@ -135,6 +149,7 @@ const AccountPage = () => {
                 <TextField label="Describe What This Code Does" multiline fullWidth maxRows={5} value={codeOverview} onChange={handleCodeOverviewChange} margin="dense"></TextField>
                 <h4>Add tags</h4>
                 <CodeSnippetTags />
+                <h4>Please attach link to resume: <input type="text" value={resumeLink} onChange={handleResumeLinkChange} style={{ width: "400px" }} /></h4>
                 <FormGroup>
                   <FormControlLabel control={<Checkbox checked={isCheckboxChecked} onChange={handleCheckboxChange} />} label="I acknowledge that the provided code is a result of my own individual effort and creativity."/>
                 </FormGroup>

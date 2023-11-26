@@ -65,6 +65,25 @@ const RecruiterMatchingPage = () => {
   }, [])
 
   const handleUserCodeSnippetLike = () => {
+    // fetch('http://127.0.0.1:5050/addLike', {
+    //       method: 'POST',
+    //       headers: {
+    //       'Content-Type': 'application/json',
+    //       },
+    //       body: JSON.stringify({
+    //         Email: ,
+    //         Company
+    //       })
+    //   })
+    //   .then(res => res.json())
+    //   .then(result => {
+    //       console.log("the data is: ", result);
+    //   })
+    //   .catch(error => {
+    //       console.log("Error in Matching Page jsx: ", error);
+    //       alert("Error in Matching Page jsx: ", error);
+    //   })
+
     setIsUserCodeSnippetLiked(true);
   }
 
