@@ -15,9 +15,10 @@ const LandingPage = () => {
   return (
     <div>
       <NavigationBar/>
-      <div>
-        <Typography variant="h1" align="center">Sample text</Typography>
-        <Typography variant="h6" align="center">small text small text small text</Typography>
+      <div className="navigation-bar">
+        <h1 className="navigation-bar-title">Welcome to</h1>
+        <h2>Revolutionizing Job Referrals!</h2>
+        <h2 className="navigation-bar-second-title">Supercharge your job search and open the door to a world of exciting career opportunities.</h2>
         <Button variant="contained" align="center" onClick={goToAccountPage}>Get Started</Button>
       </div>
     </div>

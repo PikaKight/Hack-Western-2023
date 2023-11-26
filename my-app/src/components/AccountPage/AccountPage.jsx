@@ -13,6 +13,7 @@ import 'react-quill/dist/quill.snow.css';
 const AccountPage = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
+  const [userType, setUserType] = useState('');
   const [codeSnippet, setCodeSnippet] = useState('');
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
   const [codeOverview, setCodeOverview] = useState('');
@@ -27,6 +28,12 @@ const AccountPage = () => {
     if (savedUsername) {
       const parsedUsername = JSON.parse(savedUsername);
       setUsername(parsedUsername);
+    }
+
+    const savedUserType = localStorage.getItem("USER_TYPE");
+    if (savedUserType) {
+      const parsedUserType = JSON.parse(savedUserType);
+      setUserType(parsedUserType);
     }
 
     const savedCodeSnippet = localStorage.getItem("CODE_SNIPPET");
@@ -73,24 +80,32 @@ const AccountPage = () => {
       <NavigationBar />
       {isLoggedIn ? (
         <div>
-          <h2>Account page!</h2>
+          <h2>{userType} Account Page!</h2>
           <h4>Name: {username}</h4>
-          <h3>Add code snippet below:</h3>
-          <ReactQuill
-            theme="snow" 
-            value={codeSnippet}
-            onChange={(content) => setCodeSnippet(content)}
-          />
-          <div>
-            <h4>Brief overview of what this code does.</h4>
-            <textarea cols="80" rows="5" value={codeOverview} onChange={handleCodeOverviewChange}></textarea>
-          </div>
-          <h4>Add tags</h4>
-          <CodeSnippetTags />
-          <div className="account-page-checkbox">
-            <Checkbox {...label} checked={isCheckboxChecked} onChange={handleCheckboxChange} />
-            <p>I acknowledge that the provided code is a result of my own individual effort and creativity.</p>
-          </div>
+          {userType === 'Applicant' ? (
+            <div>
+              <h3>Add code snippet below:</h3>
+              <ReactQuill
+                theme="snow" 
+                value={codeSnippet}
+                onChange={(content) => setCodeSnippet(content)}
+              />
+              <div>
+                <h4>Brief overview of what this code does.</h4>
+                <textarea cols="80" rows="5" value={codeOverview} onChange={handleCodeOverviewChange}></textarea>
+              </div>
+              <h4>Add tags</h4>
+              <CodeSnippetTags />
+              <div className="account-page-checkbox">
+                <Checkbox {...label} checked={isCheckboxChecked} onChange={handleCheckboxChange} />
+                <p>I acknowledge that the provided code is a result of my own individual effort and creativity.</p>
+              </div>
+            </div>
+          ) : (
+            <div>
+              Company currently working at: 
+            </div>
+          )}
           <div className="account-page-end-buttons">
             <button onClick={goToMatchingPage}>Start matching!</button>
           </div>

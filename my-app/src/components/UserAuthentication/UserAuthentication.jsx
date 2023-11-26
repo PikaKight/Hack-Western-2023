@@ -12,6 +12,7 @@ const [fullName, setFullName] = useState('');
 const [emailAddress, setEmailAddress] = useState('');
 const [password, setPassword] = useState('');
 const [phoneNumber, setPhoneNumber] = useState('');
+const [company, setCompany] = useState('');
 const [userType, setUserType] = useState('');
 const [userProfile, setUserProfile] = useState([]);
 const [isSignUpSelected, setIsSignUpSelected] = useState(false);
@@ -35,6 +36,12 @@ useEffect(() => {
   if (savedPhoneNumber) {
     const parsedPhoneNumber = JSON.parse(savedPhoneNumber);
     setPhoneNumber(parsedPhoneNumber);
+  }
+
+  const savedCompany = localStorage.getItem("USER_COMPANY");
+  if (savedCompany) {
+    const parsedCompany = JSON.parse(savedCompany);
+    setCompany(parsedCompany);
   }
 
   const savedUserType = localStorage.getItem("USER_TYPE");
@@ -77,6 +84,12 @@ const handlePhoneNumberChange = (event) => {
   const phoneNumber = event.target.value;
   setPhoneNumber(phoneNumber);
   localStorage.setItem("USER_PHONE_NUMBER", JSON.stringify(phoneNumber));
+}
+
+const handleCompanyChange = (event) => {
+  const company = event.target.value;
+  setCompany(company);
+  localStorage.setItem("USER_COMPANY", JSON.stringify(company));
 }
 
 const handleUserAuthentication = (item) => {
@@ -169,7 +182,7 @@ return (
               <TextField fullWidth label="Full Name" variant="outlined" size="small" value={fullName} onChange={handleFullNameChange} margin="dense" />
               <TextField fullWidth label="Email Address" variant="outlined" size="small" value={emailAddress} onChange={handleEmailAddressChange} margin="dense" />
               <TextField fullWidth label="Password" variant="outlined" size="small" value={password} onChange={handlePasswordChange} type="password" margin="dense" />
-              <TextField fullWidth label="Email Address" variant="outlined" size="small" type="number" value={phoneNumber} onChange={handlePhoneNumberChange} margin="dense"/>
+              <TextField fullWidth label="Phone number" variant="outlined" size="small" type="number" value={phoneNumber} onChange={handlePhoneNumberChange} margin="dense"/>
               <FormControl fullWidth margin="dense">
                 <InputLabel id="user-type-label">User Type</InputLabel>
                 <Select value={userType} onChange={handleUserTypeChange} labelId="user-type-label" label="User Type">
@@ -177,6 +190,9 @@ return (
                   <MenuItem value={'Recruiter'}>Recruiter</MenuItem>
                 </Select>
               </FormControl>
+              {userType === 'Recruiter' && (
+                <TextField fullWidth label="Company" variant="outlined" size="small" type="text" value={company} onChange={handleCompanyChange} margin="dense"/>  
+              )}
               <Button variant="contained" onClick={handleUserSignUp}>Sign Up</Button>
             </div>
           ) : (
