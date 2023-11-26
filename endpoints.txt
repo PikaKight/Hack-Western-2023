@@ -56,3 +56,12 @@ Will Return:
     Tech Stack,
     Type
 }
+
+GET http://127.0.0.1:5050/getApp
+
+Will Return:
+{
+    Code,
+    Email,
+    Likes
+}
