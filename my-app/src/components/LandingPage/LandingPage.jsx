@@ -20,7 +20,7 @@ const LandingPage = () => {
             <Grid item xs={6}>
               <div class="glass" id="title-text">
                 <Typography variant="h2">WELCOME TO</Typography>
-                <Typography variant="h2">[APP NAME]</Typography>
+                <Typography variant="h2" id="app-name">[APP NAME]</Typography>
                 <Typography variant="h5">Revolutionizing Job Referrals!</Typography>
                 <Button id="get-started-button" variant="contained" align="center" onClick={goToAccountPage} margin="normal">Get Started</Button>
               </div>

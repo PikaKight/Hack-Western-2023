@@ -7,3 +7,13 @@
     background-color: #1976d2;
     box-shadow: 0 0 24px 0 #1976d2;
 }
+
+#app-name {
+    background: -webkit-linear-gradient(45deg, #1976d2, #c66dfc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke-width: 0.5px;
+    -webkit-text-stroke-color: white;
+    font-weight: bolder;
+    text-shadow: 0px 0px 32px rgba(198, 109, 252, 1);
+}
