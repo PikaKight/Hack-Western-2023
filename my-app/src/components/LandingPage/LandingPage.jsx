@@ -18,7 +18,7 @@ const LandingPage = () => {
       <Container maxWidth="lg">
           <Grid container spacing={2}>
             <Grid item xs={6}>
-              <div class="glass" id="title-text">
+              <div className="glass" id="title-text">
                 <Typography variant="h2">WELCOME TO</Typography>
                 <Typography variant="h2" id="app-name">[APP NAME]</Typography>
                 <Typography variant="h5">Revolutionizing Job Referrals!</Typography>
@@ -29,8 +29,8 @@ const LandingPage = () => {
               </div>
             </Grid>
             <Grid item xs={6}>
-              <div class="glass">
-                
+              <div className="glass" id="title-image">
+                <img width="100%" src="https://media.discordapp.net/attachments/1176975406046388347/1178292048818884688/PngItem_5211464.png?ex=65759cfc&is=656327fc&hm=04663850d1c44cc77988707e756ce5b31fc0fa615874bbe6b5440483a3697b10&=&format=webp&width=1350&height=597" alt="-"></img>
               </div>
             </Grid>
           </Grid>
