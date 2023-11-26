@@ -69,9 +69,12 @@ const MatchingPage = () => {
         if (currentCompanyIndex < tempCompanyData.length-1) {
             setCurrentCompanyIndex(currentCompanyIndex + 1);
         }
+        else {
+            alert("Company limit reached")
+        }
       }
 
-    return (
+      return (
         <div>
             <NavigationBar />
             <div className="matching-page">
