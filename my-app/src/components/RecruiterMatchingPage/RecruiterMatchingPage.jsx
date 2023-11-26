@@ -1,5 +1,6 @@
 import "./RecruiterMatchingPage.css";
 import { useState, useEffect } from "react";
+import NavigationBar from "../Common/NavigationBar/NavigationBar";
 
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
@@ -17,10 +18,21 @@ const RecruiterMatchingPage = () => {
 
   return (
     <div>
-      <ReactQuill
-        theme="snow" 
-        value={codeSnippet}
-      />
+      <NavigationBar />
+      <div className="recruiter-matching-page"> 
+        <div className="recruiter-matching-page-editor">
+          <ReactQuill
+            theme="snow" 
+            value={codeSnippet}
+            readOnly={true}
+          />
+        </div>
+        <p>Tags: </p>
+        <div>
+          <button>Like</button>
+          <button>Dislike</button>
+        </div>
+      </div>
     </div>
   )
 }
