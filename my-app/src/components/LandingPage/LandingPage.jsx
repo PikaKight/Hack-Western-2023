@@ -20,7 +20,7 @@ const LandingPage = () => {
             <Grid item xs={6}>
               <div class="glass" id="title-text">
                 <Typography variant="h2">WELCOME TO</Typography>
-                <Typography variant="h2">[APP NAME]</Typography>
+                <Typography variant="h2" id="app-name">[APP NAME]</Typography>
                 <Typography variant="h5">Revolutionizing Job Referrals!</Typography>
                 <Button id="get-started-button" variant="contained" align="center" onClick={goToAccountPage} margin="normal">Get Started</Button>
               </div>
@@ -30,7 +30,7 @@ const LandingPage = () => {
             </Grid>
             <Grid item xs={6}>
               <div class="glass">
-                <img width="100%" src="https://media.istockphoto.com/id/1344688156/photo/portrait-of-a-man-using-a-computer-in-a-modern-office.jpg?s=612x612&w=0&k=20&c=xQsoWWZXJ1ydmmCGgnHyuVYUc7BILG1FauoHcloDnG4=" alt="code dude"></img>
+                
               </div>
             </Grid>
           </Grid>

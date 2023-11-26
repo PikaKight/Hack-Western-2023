@@ -6,16 +6,33 @@ import MatchingPage from "./components/MatchingPage/MatchingPage";
 
 // dependencies
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import CssBaseline from '@mui/material/CssBaseline';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+
+const themeOptions = createTheme({
+  palette: {
+    mode: 'light',
+    primary: {
+      main: '#c66dfc',
+    },
+    text: {
+      primary: '#e3f2fd',
+    },
+  },
+});
 
 const App = () => {
   return (
-    <Router> 
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/account" element={<AccountPage />} />
-        <Route path="/matching" element={<MatchingPage />} />
-      </Routes>
-    </Router>
+    <ThemeProvider theme={themeOptions}>
+      <Router> 
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/account" element={<AccountPage />} />
+          <Route path="/matching" element={<MatchingPage />} />
+        </Routes>
+      </Router>
+    </ThemeProvider>
   );
 };
 
