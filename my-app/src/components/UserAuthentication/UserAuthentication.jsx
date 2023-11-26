@@ -3,7 +3,7 @@ import "./UserAuthentication.css";
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import LoadingIcons from 'react-loading-icons'
-import { Select, FormControl, MenuItem, InputLabel, Container, Box } from '@mui/material';
+import { Select, FormControl, MenuItem, InputLabel, Container, TextField, ButtonGroup, Button } from '@mui/material';
 
 import { useNavigate } from "react-router-dom";
 
@@ -162,33 +162,32 @@ return (
     <div class="user-profile">
       <Container maxWidth="sm">
         <div class="glass">
-          <p>Either we do not have an account with you or you may have logged out.</p>
-          <button onClick={() => handleUserAuthentication("Login")}>Login</button> / <button className="user-profile-buttons" onClick={() => handleUserAuthentication("Sign Up")}>Sign Up</button>
+          <ButtonGroup variant="contained">
+            <Button onClick={() => handleUserAuthentication("Login")}>Login</Button>
+            <Button onClick={() => handleUserAuthentication("Sign Up")}>Sign Up</Button>
+          </ButtonGroup>
           {isSignUpSelected ? (
             <div className="user-profile-sign-up">
-              <h1>Sign up form</h1>
-              <p>Full name: </p><input type="text" value={fullName} onChange={handleFullNameChange} />
-              <p>Email address: </p><input type="text" value={emailAddress} onChange={handleEmailAddressChange} />
-              <p>Password: </p><input type="text" value={password} onChange={handlePasswordChange} />
-              <p>Phone number: </p><input type="number" value={phoneNumber} onChange={handlePhoneNumberChange} />
-              <div className="user-profile-user-type">
-                <FormControl fullWidth>
-                  <InputLabel>User Type</InputLabel>
-                  <Select value={userType} onChange={handleUserTypeChange}>
-                    <MenuItem value={'Applicant'}>Applicant</MenuItem>
-                    <MenuItem value={'Recruiter'}>Recruiter</MenuItem>
-                  </Select>
-                </FormControl>
-              </div>
-              <button onClick={handleUserSignUp}>Sign Up</button>
+              <h1>Sign Up</h1>
+              <TextField fullWidth label="Full Name" variant="outlined" size="small" value={fullName} onChange={handleFullNameChange} margin="dense" />
+              <TextField fullWidth label="Email Address" variant="outlined" size="small" value={emailAddress} onChange={handleEmailAddressChange} margin="dense" />
+              <TextField fullWidth label="Password" variant="outlined" size="small" value={password} onChange={handlePasswordChange} type="password" margin="dense" />
+              <TextField fullWidth label="Email Address" variant="outlined" size="small" type="number" value={phoneNumber} onChange={handlePhoneNumberChange} margin="dense"/>
+              <FormControl fullWidth margin="dense">
+                <InputLabel id="user-type-label">User Type</InputLabel>
+                <Select value={userType} onChange={handleUserTypeChange} labelId="user-type-label" label="User Type">
+                  <MenuItem value={'Applicant'}>Applicant</MenuItem>
+                  <MenuItem value={'Recruiter'}>Recruiter</MenuItem>
+                </Select>
+              </FormControl>
+              <Button variant="contained" onClick={handleUserSignUp}>Sign Up</Button>
             </div>
           ) : (
             <div className="user-profile-sign-up">
               <h1>Login form</h1>
-              <p>Email address: </p><input type="text" value={emailAddress} onChange={handleEmailAddressChange} placeholder="Enter email" />
-              <p>Password: </p><input type="text" value={password} onChange={handlePasswordChange} placeholder="Enter password" />
-              <p></p>
-              <button onClick={handleUserLogin}>Login</button>
+              <TextField fullWidth label="Email Address" variant="outlined" size="small" value={emailAddress} onChange={handleEmailAddressChange} margin="dense" />
+              <TextField fullWidth label="Password" variant="outlined" size="small" value={password} onChange={handlePasswordChange} type="password" margin="dense" />
+              <Button variant="contained" onClick={handleUserLogin}>Login</Button>
             </div>
           )}
         </div>
