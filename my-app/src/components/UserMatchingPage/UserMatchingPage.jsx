@@ -1,4 +1,4 @@
-import "./MatchingPage.css";
+import "./UserMatchingPage.css";
 
 import { useEffect, useState } from "react";
 import { Typography } from "@mui/material";
@@ -7,7 +7,7 @@ import NavigationBar from "../Common/NavigationBar/NavigationBar";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-const MatchingPage = () => {
+const UserMatchingPage = () => {
     const [companyName, setCompanyName] = useState('');
     const [positionType, setPositionType] = useState('');
     const [companyBio, setCompanyBio] = useState('');
@@ -84,7 +84,7 @@ const MatchingPage = () => {
             const result = await response.json();
             setCompanyData(result);
           } catch (error) {
-            alert("Error in MatchingPage.jsx file: ", error);
+            alert("Error in UserMatchingPage.jsx file: ", error);
           } 
         };
     
@@ -148,4 +148,4 @@ const MatchingPage = () => {
     );
 };
 
-export default MatchingPage;
+export default UserMatchingPage;
