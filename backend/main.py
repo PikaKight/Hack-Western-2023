@@ -121,7 +121,8 @@ def addProfile():
         'Tech Stack': reqData['Tech'],
         'ContactName': reqData['ContactName'],
         'ContactEmail': reqData['ContactEmail'],
-        'Bio': reqData['Bio']
+        'Bio': reqData['Bio'],
+        'Applicants': []
     }
 
     insertOne('Company', company)
@@ -151,7 +152,8 @@ def addUser():
     applicant = {
         'Email': reqData['Email'],
         'Code': reqData['Code'],
-        'Likes': 0
+        'Likes': 0,
+        'Resume': reqData['Resume']
     }
 
     insertOne('Applicant', applicant)
@@ -213,8 +215,41 @@ def getApplicant():
     return json.loads(json_util.dumps(applicants))
 
 
-@app.route('/addResume', methods=['POST'])
-def addResume():
+@app.route('/likeCompany', methods=['POST'])
+def addToCompany():
+    reqData = request.json
+
+    company = getOne('Company', {
+        'Name': reqData['Name']
+    })
+
+    email = reqData['Email']
+
+    if email in company['Applicants']:
+        res = {
+            'error': 'Applicant already exist in company files'
+        }
+
+        return res
+    
+    applicants = company['Applicants']
+
+    applicants.append(email)
+
+    updateOne('Company', {
+        'Name': reqData['Name']
+    }, {
+        'Applicants': applicants
+    })
+
+    res = {
+        'msg': 'Added Applicant to Company List'
+    }
+
+    return res
+
+@app.route('/addResumePDF', methods=['POST'])
+def addResumePDF():
     if "Resume" not in request.files:
         res = {
             "error": "No Resume Found"
